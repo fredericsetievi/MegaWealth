@@ -1,5 +1,5 @@
 ## MegaWealth
 
-Developer:
-Andreas Noel Ronal
-Frederic Setievi
+Developer:<br />
+Andreas Noel Ronal<br />
+Frederic Setievi<br />
