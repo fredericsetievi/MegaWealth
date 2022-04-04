@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\BookController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,16 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('book/create');
+    return view('welcome');
 });
-
-// Http Methods
-// Get all Book
-Route::get('/book', [BookController::class, 'index']);
-Route::get('/book/create', [BookController::class, 'create']);
-// Store Book
-Route::post('/book/store', [BookController::class, 'store'])->name('storeBook');
-// Update book
-Route::put('/book/{id}', [BookController::class, 'update']);
-// Delete Book
-Route::delete('/book/{id}', [BookController::class, 'destroy']);
