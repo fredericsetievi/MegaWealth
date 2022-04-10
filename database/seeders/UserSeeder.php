@@ -20,7 +20,10 @@ class UserSeeder extends Seeder
             "id" => "1",
             "name" => "Frederic",
             "email" => "frederic@gmail.com",
-            "password" => bcrypt("secret"),
+            "password" => bcrypt("password"),
+            "isAdmin" => "true",
+            "created_at" => Carbon::now(),
+            "updated_at" => Carbon::now(),
         ]);
 
         User::factory(10)->create();
