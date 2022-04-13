@@ -5,7 +5,8 @@
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse position-absolute end-0" id="navbarNav" style="color: #354696">
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav" style="color: #354696">
+            {{-- position-absolute end-0 --}}
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link link-secondary" href="#">Home</a>
