@@ -33,6 +33,10 @@ Route::get('/register', function () {
     return view('register.index');
 })->name('registerPage');
 
+Route::get('/home', function () {
+    return view('home.index');
+})->name('homePage');
+
 Route::get('/aboutUs', function () {
     return view('aboutUs.index');
 });
@@ -45,6 +49,12 @@ Route::get('/rent', function () {
     return view('rent.index');
 });
 
+Route::post('/search', [RealEstateController::class, 'search'])->name('search');
+
+Route::get('/searchResult', function () {
+    return view('searchResult.index');
+})->name('searchResultPage');
+
 Route::prefix('manageCompany')
     ->controller(OfficeController::class)
     ->group(function () {
@@ -56,7 +66,7 @@ Route::prefix('manageCompany')
         Route::post('/delete/{id}', 'destroy')->name('deleteOffice');
     });
 
-Route::prefix('realEsatate')
+Route::prefix('realEstate')
     ->controller(RealEstateController::class)
     ->group(function () {
         Route::get('/', 'index')->name('realEstatePage');

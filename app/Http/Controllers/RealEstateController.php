@@ -13,7 +13,7 @@ class RealEstateController extends Controller
      */
     public function index()
     {
-        return view('realEstate.index');
+        return view('manageRealEstate.index');
     }
 
     /**

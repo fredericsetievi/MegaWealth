@@ -8,13 +8,17 @@
                     @csrf
                     <div class="mb-3">
                         <label for="email" class="form-label">Name</label>
-                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email"
+                        <input type="email" class="form-control" id="email" name="email"
                             placeholder="Enter Your Name Here..." required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email"
-                            placeholder="Enter Your Email Address Here..." required>
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" id="email" name="email"
+                                placeholder="Enter Your Email Address Here..." required>
+                            <span class="input-group-text text-danger" id="basic-addon2"><i
+                                    class="bi bi-lock"></i></span>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>

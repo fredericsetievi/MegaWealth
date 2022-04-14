@@ -1,4 +1,4 @@
-<div class="container-fluid bg-blue text-black pt-2">
+<div class="container-fluid bg-light text-black mt-5">
     <div class="container">
         <footer class="py-5">
             <div class="row py-2">
@@ -30,25 +30,25 @@
                 <p>&copy; 2022 Company, Inc. All rights reserved.</p>
                 <ul class="list-unstyled d-flex">
                     <li class="ms-2">
-                        <a class="btn-floating btn-tw mx-1 text-white" href="https://whatsapp.com">
+                        <a class="btn-floating btn-tw mx-1 text-dark" href="https://whatsapp.com">
                             <i class="bi bi-whatsapp" style="font-size: 24px;"></i>
                         </a>
                     </li>
 
                     <li class="ms-2">
-                        <a class="btn-floating btn-li mx-1 text-white" href="https://facebook.com">
+                        <a class="btn-floating btn-li mx-1 text-dark" href="https://facebook.com">
                             <i class="bi bi-facebook" style="font-size: 24px;"></i>
                         </a>
                     </li>
 
                     <li class="ms-2">
-                        <a class="btn-floating btn-dribbble mx-1 text-white" href="https://instagram.com">
+                        <a class="btn-floating btn-dribbble mx-1 text-dark" href="https://instagram.com">
                             <i class="bi bi-instagram" style="font-size: 24px;"></i>
                         </a>
                     </li>
 
                     <li class="ms-2">
-                        <a class="btn-floating btn-gplus mx-1 text-white" href="https://twitter.com">
+                        <a class="btn-floating btn-gplus mx-1 text-dark" href="https://twitter.com">
                             <i class="bi bi-twitter" style="font-size: 24px;"></i>
                         </a>
                     </li>
@@ -56,7 +56,7 @@
             </div>
 
             <!-- Copyright -->
-            <div class="footer-copyright text-center py-2">
+            <div class="footer-copyright text-center">
                 <h1 style="text-decoration: none; color: black;" class="mb-0">megAWealth</h1>Copyright © 2022
             </div>
         </footer>
