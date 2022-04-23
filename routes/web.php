@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//comment
 Route::get('/', function () {
     return view('login.index');
 })->name('loginPage');
