@@ -14,7 +14,8 @@ class CartFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'userId' => $this->faker->numberBetween(1, 6),
+            'realEstateId' => $this->faker->numberBetween(1, 11),
         ];
     }
 }

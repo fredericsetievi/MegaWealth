@@ -14,7 +14,6 @@
                         <div class="input-group mb-3">
                             <input type="email" class="form-control" id="email" name="email"
                                 placeholder="Enter Your Email Address Here..." required>
-                            <span class="input-group-text text-danger" id="basic-addon2"><i class="bi bi-lock"></i></span>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -22,8 +21,6 @@
                         <div class="input-group mb-3">
                             <input type="password" class="form-control" id="password" name="password"
                                 placeholder="Your password must be at least 8 characters." required minlength="8">
-                            <span class="input-group-text text-danger" id="basic-addon2"><i
-                                    class="bi bi-lock"></i></span>
                         </div>
                     </div>
                     <div class="mb-3 form-check">

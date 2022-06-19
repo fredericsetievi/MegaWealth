@@ -16,7 +16,6 @@ class RealEstateSeeder extends Seeder
     public function run()
     {
         DB::table(table: "real_estates")->insert([
-            "id" => "1",
             "salesType" => "Sale",
             "buildingType" => "Apartement",
             "price" => 50000000,

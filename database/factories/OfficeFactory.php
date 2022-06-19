@@ -14,7 +14,6 @@ class OfficeFactory extends Factory
     public function definition()
     {
         return [
-            'id' => $this->faker->uuid(),
             'name' => $this->faker->company(),
             'address' => $this->faker->address(),
             'contactName' => $this->faker->name(),

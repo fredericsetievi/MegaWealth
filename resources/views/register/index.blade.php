@@ -16,8 +16,6 @@
                         <div class="input-group mb-3">
                             <input type="email" class="form-control" id="email" name="email"
                                 placeholder="Enter Your Email Address Here..." required>
-                            <span class="input-group-text text-danger" id="basic-addon2"><i
-                                    class="bi bi-lock"></i></span>
                         </div>
                     </div>
                     <div class="mb-3">

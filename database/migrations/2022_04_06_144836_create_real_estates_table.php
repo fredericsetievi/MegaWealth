@@ -14,7 +14,7 @@ class CreateRealEstatesTable extends Migration
     public function up()
     {
         Schema::create('real_estates', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->string('salesType');
             $table->string('buildingType');
             $table->integer('price');

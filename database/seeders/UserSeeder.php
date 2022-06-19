@@ -17,7 +17,6 @@ class UserSeeder extends Seeder
     public function run()
     {
         DB::table(table: "users")->insert([
-            "id" => "1",
             "name" => "Frederic",
             "email" => "frederic@gmail.com",
             "password" => bcrypt("password"),
@@ -26,6 +25,6 @@ class UserSeeder extends Seeder
             "updated_at" => Carbon::now(),
         ]);
 
-        User::factory(10)->create();
+        User::factory(5)->create();
     }
 }

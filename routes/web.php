@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\RealEstateController;
 use Illuminate\Support\Facades\Route;
@@ -16,22 +16,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //comment
-Route::get('/', function () {
-    return view('login.index');
-})->name('loginPage');
+Route::get('/', [UserController::class, 'indexLogin'])->name('loginPage');
 
 Route::prefix('login')
-    ->controller(LoginController::class)
+    ->controller(UserController::class)
     ->group(function () {
-        Route::get('/', 'index')->name('loginPage');
+        Route::get('/', 'indexLogin')->name('loginPage');
         Route::post('/', 'authenticate')->name('authenticateLogin');
     });
 
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
-Route::get('/register', function () {
-    return view('register.index');
-})->name('registerPage');
+Route::get('/register', [UserController::class, 'indexRegister'])->name('registerPage');
 
 Route::get('/home', function () {
     return view('home.index');

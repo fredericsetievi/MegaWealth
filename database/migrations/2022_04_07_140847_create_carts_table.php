@@ -15,8 +15,8 @@ class CreateCartsTable extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            // $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
-            $table->string('realEstateId');
+            $table->foreignId('userId')->references('id')->on('users');
+            $table->foreignId('realEstateId')->references('id')->on('real_estates');
             $table->timestamps();
         });
     }
@@ -29,8 +29,5 @@ class CreateCartsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('carts');
-        // $table->dropForeign('lists_user_id_foreign');
-        // $table->dropIndex('lists_user_id_index');
-        // $table->dropColumn('user_id');
     }
 }

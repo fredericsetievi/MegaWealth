@@ -4,16 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class LoginController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function indexLogin()
     {
         return view('login.index');
+    }
+
+    public function indexRegister()
+    {
+        return view('register.index');
     }
 
     /**
@@ -82,7 +87,7 @@ class LoginController extends Controller
         //
     }
 
-    public function authenticate()
+    public function authenticate(Request $request)
     {
         //
     }
