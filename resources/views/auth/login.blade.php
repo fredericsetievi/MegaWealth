@@ -27,6 +27,13 @@
                         <input type="checkbox" class="form-check-input" id="checkbox">
                         <label class="form-check-label" for="checkbox">Remember Me</label>
                     </div>
+                    {{-- Error Message --}}
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            {{ $errors->first() }}
+                        </div>
+                    @endif
+                    {{-- Submit Button --}}
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Login</button>
                     </div>

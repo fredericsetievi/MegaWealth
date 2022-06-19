@@ -17,7 +17,7 @@ class CreateRealEstatesTable extends Migration
             $table->id();
             $table->string('salesType');
             $table->string('buildingType');
-            $table->integer('price');
+            $table->string('price');
             $table->string('location');
             $table->string('image');
             $table->timestamps();

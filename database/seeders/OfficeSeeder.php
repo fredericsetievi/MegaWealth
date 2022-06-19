@@ -23,6 +23,6 @@ class OfficeSeeder extends Seeder
             "image" => '',
         ]);
 
-        Office::factory(10)->create();
+        Office::factory(20)->create();
     }
 }

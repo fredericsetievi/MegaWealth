@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class UserController extends Controller
 {
@@ -13,87 +16,57 @@ class UserController extends Controller
      */
     public function indexLogin()
     {
-        return view('login.index');
+        return view('auth.login');
     }
 
     public function indexRegister()
     {
-        return view('register.index');
+        return view('auth.register');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+    public function authenticateRegister(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8',
+            'confirmPassword' => 'required|same:password',
+        ]);
+
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('password'));
+        $user->role = "user";
+        $user->save();
+
+        return redirect()->route('loginPage');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function authenticateLogin(Request $request)
     {
-        //
-    }
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    public function authenticate(Request $request)
-    {
-        //
+        if (Auth::attempt($credentials)) {
+            Cookie::queue('LoginCookie', $request->input('email'), 5); // 5 minute save cookie
+            return redirect('/home');
+        } else {
+            return redirect()->back()->withErrors(['creds' => 'Invalid Accounts']);
+        }
     }
 
     public function logout()
     {
-        //
+        Auth::logout();
+        return redirect()->route('loginPage');
+    }
+
+    public function indexHome()
+    {
+        return view('home.index');
     }
 }

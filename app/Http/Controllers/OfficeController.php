@@ -2,10 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Office;
 use Illuminate\Http\Request;
 
 class OfficeController extends Controller
 {
+    public function displayOffice()
+    {
+        $offices = Office::paginate(5);
+
+        $data = [
+            'title' => 'About Us',
+            'offices' => $offices
+        ];
+
+        return view('aboutUs.index', $data);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +26,7 @@ class OfficeController extends Controller
      */
     public function index()
     {
-        return view('manageCompany.index');
+        return view('office.index');
     }
 
     /**
@@ -23,7 +36,7 @@ class OfficeController extends Controller
      */
     public function create()
     {
-        return view('manageCompany.create');
+        return view('office.create');
     }
 
     /**
@@ -56,7 +69,7 @@ class OfficeController extends Controller
      */
     public function edit($id)
     {
-        return view('manageCompany.edit');
+        return view('office.edit');
     }
 
     /**

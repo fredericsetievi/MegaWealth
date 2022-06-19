@@ -2,10 +2,58 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
+use App\Models\User;
+use App\Models\RealEstate;
 use Illuminate\Http\Request;
 
 class RealEstateController extends Controller
 {
+    public function buy()
+    {
+        $realEstates = RealEstate::where('salesType', '=', 'Sale')->paginate(4);
+
+        $data = [
+            'title' => 'Buy',
+            'realEstates' => $realEstates
+        ];
+
+        return view('realEstate.index', $data);
+    }
+
+    public function rent()
+    {
+        $realEstates = RealEstate::where('salesType', '=', 'Rent')->paginate(4);
+
+        $data = [
+            'title' => 'Rent',
+            'realEstates' => $realEstates
+        ];
+
+        return view('realEstate.index', $data);
+    }
+
+    public function cart()
+    {
+        $cart = Cart::where('userId', '=', auth()->user()->id)->get();
+        // $realEstates = RealEstate::where('id', '=', $cart[2]->realEstateId)->get();
+        // for($i=0 ; $i < $cart->count(); $i++)
+        // {
+        //     $realEstates[$i] = RealEstate::where('id', '=', $cart[$i]->realEstateId)->get();
+        // }
+        $realEstates = RealEstate::whereIn('id', $cart->pluck('realEstateId'))->get();
+        // ->paginate(4)
+        $data = [
+            'title' => 'Cart',
+            'realEstates' => $realEstates,
+            // 'realEstates' => User::find(auth()->user()->id)->realEstates,
+            'cart' => $cart
+        ];
+
+        return view('realEstate.cart', $data);
+    }
+
+
     /**
      * Display a listing of the resource.
      *

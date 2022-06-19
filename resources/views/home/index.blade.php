@@ -15,9 +15,12 @@
                         <button type="submit" class="btn btn-primary">Search</button>
                     </div>
                 </div>
-
             </form>
         </div>
-
+        <div class="navigate-content">
+            <a href="{{ route('buyPage') }}">Buy Real Estate</a>
+            <a href="{{ route('rentPage') }}">Rent Real Estate</a>
+            <a href="{{ route('aboutUsPage') }}">About Us</a>
+        </div>
     </div>
 @endsection

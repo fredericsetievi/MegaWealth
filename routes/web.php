@@ -1,9 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\RealEstateController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,34 +16,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //comment
-Route::get('/', [UserController::class, 'indexLogin'])->name('loginPage');
+Route::get('/', function () {
+    return view('home.index');
+})->name('homePage');
+
+Route::prefix('register')
+    ->controller(UserController::class)
+    ->group(function () {
+        Route::get('/', 'indexRegister')->name('registerPage');
+        Route::post('/authenticateLogin', 'authenticateRegister')->name('authenticateRegister');
+    });
 
 Route::prefix('login')
     ->controller(UserController::class)
     ->group(function () {
         Route::get('/', 'indexLogin')->name('loginPage');
-        Route::post('/', 'authenticate')->name('authenticateLogin');
+        Route::post('/authenticateRegister', 'authenticateLogin')->name('authenticateLogin');
     });
 
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
-Route::get('/register', [UserController::class, 'indexRegister'])->name('registerPage');
+Route::get('/home', [UserController::class, 'indexHome'])->name('homePage');
 
-Route::get('/home', function () {
-    return view('home.index');
-})->name('homePage');
+Route::get('/aboutUs', [OfficeController::class, 'displayOffice'])->name('aboutUsPage');
 
-Route::get('/aboutUs', function () {
-    return view('aboutUs.index');
-});
+Route::get('/buy', [RealEstateController::class, 'buy'])->name('buyPage');
 
-Route::get('/buy', function () {
-    return view('buy.index');
-});
+Route::get('/rent', [RealEstateController::class, 'rent'])->name('rentPage');
 
-Route::get('/rent', function () {
-    return view('rent.index');
-});
+Route::get('/cart', [RealEstateController::class, 'cart'])->name('cartPage');
 
 Route::post('/search', [RealEstateController::class, 'search'])->name('search');
 
@@ -65,7 +66,7 @@ Route::prefix('manageCompany')
 Route::prefix('realEstate')
     ->controller(RealEstateController::class)
     ->group(function () {
-        Route::get('/', 'index')->name('realEstatePage');
+        Route::get('/', 'index')->name('manageRealEstatePage');
         Route::get('/create', 'create')->name('createRealEstatePage');
         Route::post('/store', 'store')->name('storeRealEstate');
         Route::get('/edit/{id}', 'edit')->name('editRealEstatePage');

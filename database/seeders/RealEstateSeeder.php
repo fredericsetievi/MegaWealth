@@ -16,13 +16,13 @@ class RealEstateSeeder extends Seeder
     public function run()
     {
         DB::table(table: "real_estates")->insert([
-            "salesType" => "Sale",
+            "salesType" => "Rent",
             "buildingType" => "Apartement",
-            "price" => 50000000,
+            "price" => "500 / month",
             "location" => "Meikarta, Jakarta",
             "image" => '',
         ]);
 
-        RealEstate::factory(10)->create();
+        RealEstate::factory(50)->create();
     }
 }
