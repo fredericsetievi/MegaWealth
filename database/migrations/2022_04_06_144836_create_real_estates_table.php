@@ -19,6 +19,7 @@ class CreateRealEstatesTable extends Migration
             $table->string('buildingType');
             $table->string('price');
             $table->string('location');
+            $table->string('status')->default('Open');
             $table->string('image');
             $table->timestamps();
         });

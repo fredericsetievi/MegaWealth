@@ -79,85 +79,88 @@ class RealEstateController extends Controller
         return redirect()->route('homePage')->with('success', 'Checkout Successful');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return view('manageRealEstate.index');
+        $realEstates = RealEstate::paginate(4);
+
+        $data = [
+            'realEstates' => $realEstates
+        ];
+        return view('realEstate.index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        // //
-        // 'id' => Str::orderedUuid(),
-        // 'salesType' => $this->faker->randomElement(['Sale', 'Rent']),
-        // 'buildingType' => $this->faker->randomElement(['Apartment', 'House']),
-        // 'price' => $this->faker->numberBetween(10000000, 1000000000),
-        // 'location' => $this->faker->address(),
-        // 'image' => '',
+        return view('realEstate.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'salesType' => 'required',
+            'buildingType' => 'required',
+            'price' => 'required',
+            'location' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:10240',
+        ]);
+
+        $realEstate = new RealEstate();
+        $realEstate->salesType = $request->salesType;
+        $realEstate->buildingType = $request->buildingType;
+        $realEstate->price = $request->price;
+        $realEstate->location = $request->location;
+
+
+        $extImage = $request->berkas->getClientOriginalExtension();
+        $nameImage = "realEstate" . time() . "." . $extImage;
+        $moveImage = $request->berkas->storeAs('public/uploads/realEstate', $nameImage);
+        $realEstate->image = asset('storage/uploads/realEstate/' . $nameImage);
+
+        $realEstate->save();
+
+        return  redirect()->route('manageRealEstatePage');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $realEstate = RealEstate::find($id);
+
+        return view('realEstate.edit', compact('realEstate'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'salesType' => 'required',
+            'buildingType' => 'required',
+            'price' => 'required',
+            'location' => 'required',
+        ]);
+
+        $realEstate = RealEstate::find($id);
+        $realEstate->salesType = $request->salesType;
+        $realEstate->buildingType = $request->buildingType;
+        $realEstate->price = $request->price;
+        $realEstate->location = $request->location;
+        $realEstate->save();
+
+        return  redirect()->route('manageRealEstatePage');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function finish($id)
+    {
+        $realEstate = RealEstate::find($id);
+        $realEstate->status = 'Transaction Completed';
+        $realEstate->save();
+
+        return redirect()->back();
+    }
+
     public function destroy($id)
     {
-        //
+        $realEstate = RealEstate::find($id);
+        $realEstate->delete();
+
+        return redirect()->back();
     }
 }

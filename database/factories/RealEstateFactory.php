@@ -18,8 +18,9 @@ class RealEstateFactory extends Factory
             'id' => Str::orderedUuid(),
             'salesType' => $this->faker->randomElement(['Sale', 'Rent']),
             'buildingType' => $this->faker->randomElement(['Apartment', 'House']),
-            'price' => $this->faker->numberBetween(10000000, 1000000000),
+            'price' => $this->faker->numberBetween(100, 10000),
             'location' => $this->faker->address(),
+            'status' => $this->faker->randomElement(['Open', 'Cart', 'Transaction Completed']),
             'image' => '',
         ];
     }
