@@ -31,7 +31,7 @@
                             {{-- Delete Button --}}
                             <form action="{{ route('deleteRealEstate', $realEstate->id) }}" method="POST">
                                 @csrf
-                                <button type="submit" class="btn btn-danger">Cancel</button>
+                                <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                             {{-- Finish Button --}}
                             @if ($realEstate->status == 'Cart')

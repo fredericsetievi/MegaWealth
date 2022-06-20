@@ -91,42 +91,76 @@ class RealEstateController extends Controller
 
     public function create()
     {
-        // //
-        // 'id' => Str::orderedUuid(),
-        // 'salesType' => $this->faker->randomElement(['Sale', 'Rent']),
-        // 'buildingType' => $this->faker->randomElement(['Apartment', 'House']),
-        // 'price' => $this->faker->numberBetween(10000000, 1000000000),
-        // 'location' => $this->faker->address(),
-        // 'image' => '',
+        return view('realEstate.create');
     }
 
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'salesType' => 'required',
+            'buildingType' => 'required',
+            'price' => 'required',
+            'location' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:10240',
+        ]);
 
-    public function show($id)
-    {
-        //
+        $realEstate = new RealEstate();
+        $realEstate->salesType = $request->salesType;
+        $realEstate->buildingType = $request->buildingType;
+        $realEstate->price = $request->price;
+        $realEstate->location = $request->location;
+
+
+        $extImage = $request->berkas->getClientOriginalExtension();
+        $nameImage = "realEstate" . time() . "." . $extImage;
+        $moveImage = $request->berkas->storeAs('public/uploads/realEstate', $nameImage);
+        $realEstate->image = asset('storage/uploads/realEstate/' . $nameImage);
+
+        $realEstate->save();
+
+        return  redirect()->route('manageRealEstatePage');
     }
 
     public function edit($id)
     {
-        //
+        $realEstate = RealEstate::find($id);
+
+        return view('realEstate.edit', compact('realEstate'));
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'salesType' => 'required',
+            'buildingType' => 'required',
+            'price' => 'required',
+            'location' => 'required',
+        ]);
+
+        $realEstate = RealEstate::find($id);
+        $realEstate->salesType = $request->salesType;
+        $realEstate->buildingType = $request->buildingType;
+        $realEstate->price = $request->price;
+        $realEstate->location = $request->location;
+        $realEstate->save();
+
+        return  redirect()->route('manageRealEstatePage');
     }
 
     public function finish($id)
     {
-        //
+        $realEstate = RealEstate::find($id);
+        $realEstate->status = 'Transaction Completed';
+        $realEstate->save();
+
+        return redirect()->back();
     }
 
     public function destroy($id)
     {
-        //
+        $realEstate = RealEstate::find($id);
+        $realEstate->delete();
+
+        return redirect()->back();
     }
 }
