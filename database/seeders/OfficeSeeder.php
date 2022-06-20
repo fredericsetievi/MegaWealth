@@ -16,7 +16,7 @@ class OfficeSeeder extends Seeder
     public function run()
     {
         Office::create([
-            "id" => Str::uuid(),
+            "id" => Str::orderedUuid(),
             "name" => "Cikurut Office",
             "address" => "Jl. Cikurut No. 4, Cikurut, Kota Bandung, Jawa Barat 40133",
             "contactName" => "Anton Surya",
@@ -25,7 +25,7 @@ class OfficeSeeder extends Seeder
         ]);
 
         Office::create([
-            "id" => Str::uuid(),
+            "id" => Str::orderedUuid(),
             "name" => "Cikutra Office",
             "address" => "Jl. Cikutra No. 1, Cikutra, Kota Bandung, Jawa Barat 40132",
             "contactName" => "Jaya Kusuma",
@@ -34,7 +34,7 @@ class OfficeSeeder extends Seeder
         ]);
 
         Office::create([
-            "id" => Str::uuid(),
+            "id" => Str::orderedUuid(),
             "name" => "Ciputra Office",
             "address" => "Jl. Ciputra No. 1, Ciputra, Jakarta Barat, DKI Jakarta 11432",
             "contactName" => "Budi Andri",
@@ -43,7 +43,7 @@ class OfficeSeeder extends Seeder
         ]);
 
         Office::create([
-            "id" => Str::uuid(),
+            "id" => Str::orderedUuid(),
             "name" => "BSD Office",
             "address" => "Jl. BSD No. 1, Serpong, Tangerang Selatan, Banten 21311",
             "contactName" => "Kesuma",
@@ -52,7 +52,7 @@ class OfficeSeeder extends Seeder
         ]);
 
         Office::create([
-            "id" => Str::uuid(),
+            "id" => Str::orderedUuid(),
             "name" => "Pluit Office",
             "address" => "Jl. Pluit Raya No. 2, Pluit, Jakarta Utara, DKI Jakarta 31231",
             "contactName" => "Kolawit",
@@ -61,7 +61,7 @@ class OfficeSeeder extends Seeder
         ]);
 
         Office::create([
-            "id" => Str::uuid(),
+            "id" => Str::orderedUuid(),
             "name" => "Percetakan Office",
             "address" => "Jl. Percetakan Negara 1 No. 3, Cempaka Putih, Jakarta Pusat, DKI Jakarta 12345",
             "contactName" => "Ronald",
@@ -70,7 +70,7 @@ class OfficeSeeder extends Seeder
         ]);
 
         Office::create([
-            "id" => Str::uuid(),
+            "id" => Str::orderedUuid(),
             "name" => "Kemang Office",
             "address" => "Jl. Kemang Raya No. 4, Kemang, Jakarta Selatan, DKI Jakarta 21322",
             "contactName" => "Ariana",
@@ -79,7 +79,7 @@ class OfficeSeeder extends Seeder
         ]);
 
         Office::create([
-            "id" => Str::uuid(),
+            "id" => Str::orderedUuid(),
             "name" => "Bungur Office",
             "address" => "Jl. Bungur No. 3, Mampang, Jakarta Selatan, DKI Jakarta 21322",
             "contactName" => "Chandra",
@@ -88,7 +88,7 @@ class OfficeSeeder extends Seeder
         ]);
 
         Office::create([
-            "id" => Str::uuid(),
+            "id" => Str::orderedUuid(),
             "name" => "Foresta 1 Office",
             "address" => "Jl. Pagedangan No. 3, Pagedangan, Tangerang, Banten 21311",
             "contactName" => "Siti",
@@ -97,7 +97,7 @@ class OfficeSeeder extends Seeder
         ]);
 
         Office::create([
-            "id" => Str::uuid(),
+            "id" => Str::orderedUuid(),
             "name" => "Foresta 2 Office",
             "address" => "Jl. Pagedangan No. 6, Pagedangan, Tangerang, Banten 21311",
             "contactName" => "Nur Azizah",
@@ -106,7 +106,7 @@ class OfficeSeeder extends Seeder
         ]);
 
         Office::create([
-            "id" => Str::uuid(),
+            "id" => Str::orderedUuid(),
             "name" => "Menara Office",
             "address" => "Jl. M.H. Thamrin No. 1, Tanah Abang, Jakarta Pusat, DKI Jakarta 12346",
             "contactName" => "Kesuma",

@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'id' => (string) Str::uuid(),
+            'id' => Str::orderedUuid(),
             "name" => "Frederic",
             "email" => "frederic@gmail.com",
             "password" => bcrypt("password"),

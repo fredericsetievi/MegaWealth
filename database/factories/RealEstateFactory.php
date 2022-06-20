@@ -15,7 +15,7 @@ class RealEstateFactory extends Factory
     public function definition()
     {
         return [
-            'id' => Str::uuid(),
+            'id' => Str::orderedUuid(),
             'salesType' => $this->faker->randomElement(['Sale', 'Rent']),
             'buildingType' => $this->faker->randomElement(['Apartment', 'House']),
             'price' => $this->faker->numberBetween(10000000, 1000000000),

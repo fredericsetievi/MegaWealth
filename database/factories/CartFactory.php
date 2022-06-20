@@ -17,7 +17,7 @@ class CartFactory extends Factory
     public function definition()
     {
         return [
-            'id' => Str::uuid(),
+            'id' => Str::orderedUuid(),
             'userId' => User::all()->random()->id,
             'realEstateId' => RealEstate::all()->random()->id,
         ];

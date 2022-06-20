@@ -17,7 +17,7 @@ class RealEstateSeeder extends Seeder
     public function run()
     {
         RealEstate::create([
-            'id' => Str::uuid(),
+            'id' => Str::orderedUuid(),
             "salesType" => "Rent",
             "buildingType" => "Apartement",
             "price" => "500 / month",
@@ -26,7 +26,7 @@ class RealEstateSeeder extends Seeder
         ]);
 
         RealEstate::create([
-            'id' => Str::uuid(),
+            'id' => Str::orderedUuid(),
             "salesType" => "Rent",
             "buildingType" => "House",
             "price" => "700 / month",
@@ -35,7 +35,7 @@ class RealEstateSeeder extends Seeder
         ]);
 
         RealEstate::create([
-            'id' => Str::uuid(),
+            'id' => Str::orderedUuid(),
             "salesType" => "Rent",
             "buildingType" => "Apartment",
             "price" => "600 / month",
@@ -44,7 +44,7 @@ class RealEstateSeeder extends Seeder
         ]);
 
         RealEstate::create([
-            'id' => Str::uuid(),
+            'id' => Str::orderedUuid(),
             "salesType" => "Rent",
             "buildingType" => "Apartment",
             "price" => "400 / month",
@@ -53,7 +53,7 @@ class RealEstateSeeder extends Seeder
         ]);
 
         RealEstate::create([
-            'id' => Str::uuid(),
+            'id' => Str::orderedUuid(),
             "salesType" => "Rent",
             "buildingType" => "Apartment",
             "price" => "1000 / month",
@@ -62,7 +62,7 @@ class RealEstateSeeder extends Seeder
         ]);
 
         RealEstate::create([
-            'id' => Str::uuid(),
+            'id' => Str::orderedUuid(),
             "salesType" => "Sale",
             "buildingType" => "House",
             "price" => "1300",
@@ -71,7 +71,7 @@ class RealEstateSeeder extends Seeder
         ]);
 
         RealEstate::create([
-            'id' => Str::uuid(),
+            'id' => Str::orderedUuid(),
             "salesType" => "Sale",
             "buildingType" => "House",
             "price" => "1800",
@@ -80,7 +80,7 @@ class RealEstateSeeder extends Seeder
         ]);
 
         RealEstate::create([
-            'id' => Str::uuid(),
+            'id' => Str::orderedUuid(),
             "salesType" => "Sale",
             "buildingType" => "House",
             "price" => "2000",
@@ -89,7 +89,7 @@ class RealEstateSeeder extends Seeder
         ]);
 
         RealEstate::create([
-            'id' => Str::uuid(),
+            'id' => Str::orderedUuid(),
             "salesType" => "Sale",
             "buildingType" => "House",
             "price" => "2100",
@@ -98,7 +98,7 @@ class RealEstateSeeder extends Seeder
         ]);
 
         RealEstate::create([
-            'id' => Str::uuid(),
+            'id' => Str::orderedUuid(),
             "salesType" => "Sale",
             "buildingType" => "Apartment",
             "price" => "1600",
@@ -107,7 +107,7 @@ class RealEstateSeeder extends Seeder
         ]);
 
         RealEstate::create([
-            'id' => Str::uuid(),
+            'id' => Str::orderedUuid(),
             "salesType" => "Sale",
             "buildingType" => "House",
             "price" => "1400",
