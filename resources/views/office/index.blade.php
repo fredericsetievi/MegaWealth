@@ -19,7 +19,7 @@
                         <img src="{{ asset('storage/office/' . $office->image) }}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h4 class="card-title">{{ $office->name }}</h4>
-                            <h4 class="card-title">{{ $office->name }}</h4>
+                            <h4 class="card-title">{{ $office->location }}</h4>
                             <h4 class="card-title">{{ $office->contactName }}</h4>
                             <h4 class="card-title">{{ $office->phone }}</h4>
                             {{-- Update Button --}}

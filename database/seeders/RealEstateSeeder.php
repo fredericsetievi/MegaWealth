@@ -22,6 +22,7 @@ class RealEstateSeeder extends Seeder
             "buildingType" => "Apartement",
             "price" => "500 / month",
             "location" => "Meikarta, Jakarta",
+            "status" => "Open",
             "image" => 'real11.jpg',
         ]);
 
@@ -31,6 +32,7 @@ class RealEstateSeeder extends Seeder
             "buildingType" => "House",
             "price" => "700 / month",
             "location" => "Pluit, Jakarta",
+            "status" => "Open",
             "image" => 'real1.jpg',
         ]);
 
@@ -40,6 +42,7 @@ class RealEstateSeeder extends Seeder
             "buildingType" => "Apartment",
             "price" => "600 / month",
             "location" => "PIK 1, Jakarta",
+            "status" => "Open",
             "image" => 'real4.jpg',
         ]);
 
@@ -49,6 +52,7 @@ class RealEstateSeeder extends Seeder
             "buildingType" => "Apartment",
             "price" => "400 / month",
             "location" => "Rajawali, Jakarta",
+            "status" => "Open",
             "image" => 'real6.jpg',
         ]);
 
@@ -58,6 +62,7 @@ class RealEstateSeeder extends Seeder
             "buildingType" => "Apartment",
             "price" => "1000 / month",
             "location" => "Gandaria, Jakarta",
+            "status" => "Open",
             "image" => 'real10.jpg',
         ]);
 
@@ -67,6 +72,7 @@ class RealEstateSeeder extends Seeder
             "buildingType" => "House",
             "price" => "1300",
             "location" => "Bungur, Jakarta",
+            "status" => "Open",
             "image" => 'real2.jpg',
         ]);
 
@@ -76,6 +82,7 @@ class RealEstateSeeder extends Seeder
             "buildingType" => "House",
             "price" => "1800",
             "location" => "Pondok Indah, Jakarta",
+            "status" => "Open",
             "image" => 'real3.jpg',
         ]);
 
@@ -85,6 +92,7 @@ class RealEstateSeeder extends Seeder
             "buildingType" => "House",
             "price" => "2000",
             "location" => "Pondok Indah, Jakarta",
+            "status" => "Open",
             "image" => 'real5.jpg',
         ]);
 
@@ -94,6 +102,7 @@ class RealEstateSeeder extends Seeder
             "buildingType" => "House",
             "price" => "2100",
             "location" => "PIK 2, Jakarta",
+            "status" => "Open",
             "image" => 'real7.jpg',
         ]);
 
@@ -103,6 +112,7 @@ class RealEstateSeeder extends Seeder
             "buildingType" => "Apartment",
             "price" => "1600",
             "location" => "Pluit, Jakarta",
+            "status" => "Open",
             "image" => 'real8.jpg',
         ]);
 
@@ -112,6 +122,7 @@ class RealEstateSeeder extends Seeder
             "buildingType" => "House",
             "price" => "1400",
             "location" => "Sunter, Jakarta",
+            "status" => "Open",
             "image" => 'real9.jpg',
         ]);
 
