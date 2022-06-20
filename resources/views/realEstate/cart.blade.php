@@ -9,7 +9,7 @@
             {{ $realEstate->updated_at }}
 
             {{-- Cancel Button --}}
-            <form action="{{ route('removeFromCart', $realEstate->id) }}" method="post">
+            <form action="{{ route('removeFromCart', $realEstate->id) }}" method="POST">
                 @csrf
                 <button type="submit" class="btn btn-danger">Cancel</button>
             </form>
@@ -18,7 +18,7 @@
         @endforeach
         {{ $realEstates->links() }}
         {{-- Checkout Button --}}
-        <form action="{{ route('checkoutCart') }}" method="post">
+        <form action="{{ route('checkoutCart') }}" method="POST">
             @csrf
             <button type="submit" class="btn btn-primary">Checkout</button>
         </form>

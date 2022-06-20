@@ -26,7 +26,14 @@ class OfficeController extends Controller
      */
     public function index()
     {
-        return view('office.index');
+        $offices = Office::paginate(4);
+
+        $data = [
+            'title' => 'Manage Company',
+            'offices' => $offices
+        ];
+
+        return view('office.index', $data);
     }
 
     /**
@@ -47,18 +54,29 @@ class OfficeController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'contactName' => 'required',
+            'phone' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:10240',
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $office = new Office();
+        $office->name = $request->name;
+        $office->address = $request->address;
+        $office->contactName = $request->contactName;
+        $office->phone = $request->phone;
+
+
+        $extImage = $request->berkas->getClientOriginalExtension();
+        $nameImage = "office" . time() . "." . $extImage;
+        $moveImage = $request->berkas->storeAs('public/uploads/office', $nameImage);
+        $office->image = asset('storage/uploads/office/' . $nameImage);
+
+        $office->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -69,7 +87,9 @@ class OfficeController extends Controller
      */
     public function edit($id)
     {
-        return view('office.edit');
+        $office = Office::find($id);
+
+        return view('office.edit', compact('office'));
     }
 
     /**
@@ -81,7 +101,21 @@ class OfficeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'contactName' => 'required',
+            'phone' => 'required',
+        ]);
+
+        $office = Office::find($id);
+        $office->name = $request->name;
+        $office->address = $request->address;
+        $office->contactName = $request->contactName;
+        $office->phone = $request->phone;
+        $office->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -92,6 +126,9 @@ class OfficeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $office = Office::find($id);
+        $office->delete();
+
+        return redirect()->back();
     }
 }

@@ -11,10 +11,10 @@
                     <a class="nav-link link-light" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-light" href="{{ route('manageCompanyPage') }}">Manage Company</a>
+                    <a class="nav-link link-light" href="{{ route('manageOfficePage') }}">Manage Company</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-light" href="{{ route('realEstatePage') }}">Manage Real Estate
+                    <a class="nav-link link-light" href="{{ route('manageRealEstatePage') }}">Manage Real Estate
                     </a>
                 </li>
                 <li class="nav-item">

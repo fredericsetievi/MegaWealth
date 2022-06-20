@@ -61,7 +61,7 @@ Route::get('/searchResult', function () {
 Route::prefix('manageCompany')
     ->controller(OfficeController::class)
     ->group(function () {
-        Route::get('/', 'index')->name('manageCompanyPage');
+        Route::get('/', 'index')->name('manageOfficePage');
         Route::get('/create', 'create')->name('createOfficePage');
         Route::post('/store', 'store')->name('storeOffice');
         Route::get('/edit/{id}', 'edit')->name('editOfficePage');
