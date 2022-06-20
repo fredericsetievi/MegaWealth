@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
+use App\Models\RealEstate;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CartFactory extends Factory
@@ -14,8 +17,9 @@ class CartFactory extends Factory
     public function definition()
     {
         return [
-            'userId' => $this->faker->numberBetween(1, 21),
-            'realEstateId' => $this->faker->numberBetween(1, 51),
+            'id' => Str::uuid(),
+            'userId' => User::get()->random()->id,
+            'realEstateId' => RealEstate::get()->random()->id,
         ];
     }
 }

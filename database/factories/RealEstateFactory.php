@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class RealEstateFactory extends Factory
 {
@@ -14,6 +15,7 @@ class RealEstateFactory extends Factory
     public function definition()
     {
         return [
+            'id' => Str::uuid(),
             'salesType' => $this->faker->randomElement(['Sale', 'Rent']),
             'buildingType' => $this->faker->randomElement(['Apartment', 'House']),
             'price' => $this->faker->numberBetween(10000000, 1000000000),

@@ -14,9 +14,9 @@ class CreateCartsTable extends Migration
     public function up()
     {
         Schema::create('carts', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('userId')->references('id')->on('users');
-            $table->foreignId('realEstateId')->references('id')->on('real_estates');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('userId')->references('id')->on('users');
+            $table->foreignUuid('realEstateId')->references('id')->on('real_estates');
             $table->timestamps();
         });
     }

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Office;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class OfficeSeeder extends Seeder
 {
@@ -16,6 +17,7 @@ class OfficeSeeder extends Seeder
     public function run()
     {
         DB::table(table: "offices")->insert([
+            'id' => Str::uuid(),
             "name" => "Cikutra Office",
             "address" => "Jl. Cikutra No. 1, Cikutra, Kota Bandung, Jawa Barat 40132",
             "contactName" => "Jaya Kusuma",
