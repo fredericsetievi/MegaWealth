@@ -9,7 +9,7 @@
 @section('content')
     <form action="{{ route('createRealEstatePage') }}" method="GET">
         @csrf
-        <button type="submit" class="btn btn-primary">+ Add realEstate</button>
+        <button type="submit" class="btn btn-primary">+ Add Real Estate</button>
     </form>
     <div class="container">
         @if (count($realEstates) > 0)
@@ -22,7 +22,7 @@
                             <h4 class="card-title">{{ $realEstate->price }}</h4>
                             <h4 class="card-title">{{ $realEstate->buildingType }}</h4>
                             <h4 class="card-title">{{ $realEstate->salesType }}</h4>
-                            <h4 class="card-title">{{ $realEstate->status }}</h4>
+                            <span class="badge bg-success">{{ $realEstate->status }}</span>
                             {{-- Update Button --}}
                             <form action="{{ route('editRealEstatePage', $realEstate->id) }}" method="GET">
                                 @csrf
@@ -33,6 +33,13 @@
                                 @csrf
                                 <button type="submit" class="btn btn-danger">Cancel</button>
                             </form>
+                            {{-- Finish Button --}}
+                            @if ($realEstate->status == 'Cart')
+                                <form action="{{ route('finishRealEstate', $realEstate->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success">Finish</button>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 </div>

@@ -77,5 +77,6 @@ Route::prefix('realEstate')
         Route::post('/store', 'store')->name('storeRealEstate');
         Route::get('/edit/{id}', 'edit')->name('editRealEstatePage');
         Route::post('/update/{id}', 'update')->name('updateRealEstate');
+        Route::post('/finish/{id}', 'finish')->name('finishRealEstate');
         Route::post('/delete/{id}', 'destroy')->name('deleteRealEstate');
     });
