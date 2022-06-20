@@ -1,6 +1,12 @@
 @extends('layouts.user.main')
 
 @section('content')
+    {{-- Success Message --}}
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <div class="d-flex justify-content-center mt-5">
         <div class="top-banner">
             <h1>Find Your Future Home</h1>

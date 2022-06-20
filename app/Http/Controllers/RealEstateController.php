@@ -35,6 +35,11 @@ class RealEstateController extends Controller
 
     public function addToCart($realEstateId)
     {
+        $alreadyHas = Cart::where('userId', '=', auth()->user()->id)->where('realEstateId', '=', $realEstateId)->first();
+        if ($alreadyHas) {
+            return redirect()->back()->with('error', 'You already have this item in your cart');
+        }
+
         $cart = new Cart();
         $cart->id = Str::uuid();
         $cart->userId = auth()->user()->id;
@@ -56,6 +61,23 @@ class RealEstateController extends Controller
         return view('realEstate.cart', $data);
     }
 
+    public function removeFromCart($realEstateId)
+    {
+        $cart = Cart::where('userId', '=', auth()->user()->id)->where('realEstateId', '=', $realEstateId)->first();
+        $cart->delete();
+
+        return redirect()->route('cartPage');
+    }
+
+    public function checkoutCart()
+    {
+        $cart = Cart::where('userId', '=', auth()->user()->id)->get();
+        foreach ($cart as $item) {
+            $item->delete();
+        }
+
+        return redirect()->route('homePage')->with('success', 'Checkout Successful');
+    }
 
     /**
      * Display a listing of the resource.

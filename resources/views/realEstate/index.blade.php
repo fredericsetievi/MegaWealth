@@ -13,5 +13,11 @@
             <button type="submit" class="btn btn-primary">{{ $title }}</button>
         </form>
     @endforeach
+    {{-- Error Message --}}
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     {{ $realEstates->links() }}
 @endsection
