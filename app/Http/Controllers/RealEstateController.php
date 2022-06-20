@@ -18,7 +18,7 @@ class RealEstateController extends Controller
             'realEstates' => $realEstates
         ];
 
-        return view('realEstate.index', $data);
+        return view('buyAndRent.index', $data);
     }
 
     public function rent()
@@ -30,7 +30,7 @@ class RealEstateController extends Controller
             'realEstates' => $realEstates
         ];
 
-        return view('realEstate.index', $data);
+        return view('buyAndRent.index', $data);
     }
 
     public function addToCart($realEstateId)
@@ -96,7 +96,13 @@ class RealEstateController extends Controller
      */
     public function create()
     {
-        //
+        // //
+        // 'id' => Str::orderedUuid(),
+        // 'salesType' => $this->faker->randomElement(['Sale', 'Rent']),
+        // 'buildingType' => $this->faker->randomElement(['Apartment', 'House']),
+        // 'price' => $this->faker->numberBetween(10000000, 1000000000),
+        // 'location' => $this->faker->address(),
+        // 'image' => '',
     }
 
     /**

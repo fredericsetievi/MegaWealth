@@ -76,7 +76,7 @@ class OfficeController extends Controller
 
         $office->save();
 
-        return redirect()->back();
+        return  redirect()->route('manageOfficePage');
     }
 
     /**
@@ -115,7 +115,7 @@ class OfficeController extends Controller
         $office->phone = $request->phone;
         $office->save();
 
-        return redirect()->back();
+        return  redirect()->route('manageOfficePage');
     }
 
     /**
