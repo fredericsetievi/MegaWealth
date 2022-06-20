@@ -16,7 +16,7 @@ class RealEstateSeeder extends Seeder
      */
     public function run()
     {
-        DB::table(table: "real_estates")->insert([
+        RealEstate::create([
             'id' => Str::uuid(),
             "salesType" => "Rent",
             "buildingType" => "Apartement",

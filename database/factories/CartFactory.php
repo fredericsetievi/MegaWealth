@@ -18,8 +18,8 @@ class CartFactory extends Factory
     {
         return [
             'id' => Str::uuid(),
-            'userId' => User::get()->random()->id,
-            'realEstateId' => RealEstate::get()->random()->id,
+            'userId' => User::all()->random()->id,
+            'realEstateId' => RealEstate::all()->random()->id,
         ];
     }
 }

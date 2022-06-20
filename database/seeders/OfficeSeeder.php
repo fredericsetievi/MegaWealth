@@ -15,7 +15,7 @@ class OfficeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table(table: "offices")->insert([
+        Office::create([
             "id" => Str::uuid(),
             "name" => "Cikurut Office",
             "address" => "Jl. Cikurut No. 4, Cikurut, Kota Bandung, Jawa Barat 40133",

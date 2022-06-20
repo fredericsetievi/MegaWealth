@@ -23,4 +23,12 @@
             <a href="{{ route('aboutUsPage') }}">About Us</a>
         </div>
     </div>
+    <?php
+    use App\Models\User;
+    $user = User::all();
+    foreach ($user as $e) {
+        echo $e->id;
+    }
+    
+    ?>
 @endsection

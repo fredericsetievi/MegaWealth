@@ -10,6 +10,10 @@ class RealEstate extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'id' => 'string'
+    ];
+
     // Many To Many
     public function users()
     {
