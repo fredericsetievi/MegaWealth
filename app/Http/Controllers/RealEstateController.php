@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use App\Models\User;
 use App\Models\RealEstate;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class RealEstateController extends Controller
@@ -33,21 +33,24 @@ class RealEstateController extends Controller
         return view('realEstate.index', $data);
     }
 
+    public function addToCart($realEstateId)
+    {
+        $cart = new Cart();
+        $cart->id = Str::uuid();
+        $cart->userId = auth()->user()->id;
+        $cart->realEstateId = $realEstateId;
+        $cart->save();
+
+        return redirect()->route('cartPage');
+    }
+
     public function cart()
     {
         $cart = Cart::where('userId', '=', auth()->user()->id)->get();
-        // $realEstates = RealEstate::where('id', '=', $cart[2]->realEstateId)->get();
-        // for($i=0 ; $i < $cart->count(); $i++)
-        // {
-        //     $realEstates[$i] = RealEstate::where('id', '=', $cart[$i]->realEstateId)->get();
-        // }
-        $realEstates = RealEstate::whereIn('id', $cart->pluck('realEstateId'))->get();
-        // ->paginate(4)
+        $realEstates = RealEstate::whereIn('id', $cart->pluck('realEstateId'))->paginate(4);
         $data = [
             'title' => 'Cart',
             'realEstates' => $realEstates,
-            // 'realEstates' => User::find(auth()->user()->id)->realEstates,
-            'cart' => $cart
         ];
 
         return view('realEstate.cart', $data);

@@ -44,6 +44,8 @@ Route::get('/buy', [RealEstateController::class, 'buy'])->name('buyPage');
 
 Route::get('/rent', [RealEstateController::class, 'rent'])->name('rentPage');
 
+Route::post('/addToCart/{realEstateId}', [RealEstateController::class, 'addToCart'])->name('addToCart');
+
 Route::get('/cart', [RealEstateController::class, 'cart'])->name('cartPage');
 
 Route::post('/search', [RealEstateController::class, 'search'])->name('search');
