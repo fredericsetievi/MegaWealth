@@ -21,14 +21,12 @@
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" name="password"
-                            placeholder="Your password must be at least 8 characters." value="{{ old('password') }}"
-                            required minlength="8">
+                            placeholder="Your password must be at least 8 characters." required minlength="8">
                     </div>
                     <div class="mb-3">
                         <label for="confirmPassword" class="form-label">Confirm Password</label>
                         <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
-                            placeholder="Re-type your password" value="{{ old('confirmPassword') }}" required
-                            minlength="8">
+                            placeholder="Re-type your password" required minlength="8">
                     </div>
                     {{-- Error Message --}}
                     @if ($errors->any())

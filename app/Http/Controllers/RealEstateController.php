@@ -126,6 +126,7 @@ class RealEstateController extends Controller
         ]);
 
         $realEstate = new RealEstate();
+        $realEstate-> id = Str::orderedUuid();
         $realEstate->salesType = $request->salesType;
         $realEstate->buildingType = $request->buildingType;
         $realEstate->price = $request->price;

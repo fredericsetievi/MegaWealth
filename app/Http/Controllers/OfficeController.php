@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Office;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class OfficeController extends Controller
@@ -47,6 +48,7 @@ class OfficeController extends Controller
         ]);
 
         $office = new Office();
+        $office->id = Str::orderedUuid();
         $office->name = $request->name;
         $office->address = $request->address;
         $office->contactName = $request->contactName;
