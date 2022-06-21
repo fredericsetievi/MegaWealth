@@ -1,4 +1,4 @@
-@extends('layouts.admin.main')
+@extends('layouts.main')
 
 @section('content')
     <form action="{{ route('createRealEstatePage') }}" method="GET">
@@ -13,9 +13,9 @@
                         <img src="{{ asset('storage/uploads/realEstate/' . $realEstate->image) }}" class="card-img-top"
                             alt="...">
                         <div class="card-body">
-                            <h4 class="card-title">{{ $realEstate->price }}</h4>
-                            <h4 class="card-title">{{ $realEstate->buildingType }}</h4>
-                            <h4 class="card-title">{{ $realEstate->salesType }}</h4>
+                            <h4>{{ $realEstate->price }}</h4>
+                            <h4>{{ $realEstate->buildingType }}</h4>
+                            <h4>{{ $realEstate->salesType }}</h4>
                             <span class="badge bg-success">{{ $realEstate->status }}</span>
                             {{-- Update Button --}}
                             <form action="{{ route('editRealEstatePage', $realEstate->id) }}" method="GET">

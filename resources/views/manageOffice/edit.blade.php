@@ -1,4 +1,4 @@
-@extends('layouts.admin.main')
+@extends('layouts.main')
 
 @section('content')
     <h1>Update Office</h1>

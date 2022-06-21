@@ -23,11 +23,13 @@
 
 <body>
     {{-- Navbar --}}
-    @include('layouts.admin.navbar')
+    @include('layouts.navbar')
 
     {{-- Content --}}
     @yield('content')
 
+    {{-- Footer --}}
+    @include('layouts.footer')
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-@extends('layouts.admin.main')
+@extends('layouts.main')
 
 @section('content')
     <form action="{{ route('createOfficePage') }}" method="GET">
@@ -13,10 +13,10 @@
                         <img src="{{ asset('storage/uploads/office/' . $office->image) }}" class="card-img-top"
                             alt="...">
                         <div class="card-body">
-                            <h4 class="card-title">{{ $office->name }}</h4>
-                            <h4 class="card-title">{{ $office->location }}</h4>
-                            <h4 class="card-title">{{ $office->contactName }}</h4>
-                            <h4 class="card-title">{{ $office->phone }}</h4>
+                            <h4>{{ $office->name }}</h4>
+                            <h4>{{ $office->location }}</h4>
+                            <h4>{{ $office->contactName }}</h4>
+                            <h4>{{ $office->phone }}</h4>
                             {{-- Update Button --}}
                             <form action="{{ route('editOfficePage', $office->id) }}" method="GET">
                                 @csrf

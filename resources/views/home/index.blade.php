@@ -1,4 +1,4 @@
-@extends('layouts.user.main')
+@extends('layouts.main')
 
 @section('content')
     {{-- Success Message --}}

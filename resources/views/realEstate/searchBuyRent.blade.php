@@ -1,4 +1,4 @@
-@extends('layouts.user.main')
+@extends('layouts.main')
 
 @section('content')
     <h1>Showing Real Estates For {{ $title }}</h1>
