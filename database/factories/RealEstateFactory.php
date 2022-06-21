@@ -20,7 +20,7 @@ class RealEstateFactory extends Factory
             'buildingType' => $this->faker->randomElement(['Apartment', 'House']),
             'price' => $this->faker->numberBetween(100, 10000),
             'location' => $this->faker->address(),
-            'status' => $this->faker->randomElement(['Open', 'Cart', 'Transaction Completed']),
+            'status' => $this->faker->randomElement(['Open', 'Transaction Completed']),
             'image' => '',
         ];
     }

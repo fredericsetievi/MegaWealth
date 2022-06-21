@@ -7,7 +7,7 @@
             <div class="col-md-3 col-sm-6">
                 <div class="card" style="width: 25rem;">
                     <img src="{{ asset('storage/uploads/realEstate/' . $realEstate->image) }}" class="card-img-top"
-                        alt="...">
+                        alt="Real Estate Image">
                     <div class="card-body">
                         <h4>{{ $realEstate->price }}</h4>
                         <h5>{{ $realEstate->location }}</h5>

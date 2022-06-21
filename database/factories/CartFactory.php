@@ -19,7 +19,7 @@ class CartFactory extends Factory
         return [
             'id' => Str::orderedUuid(),
             'userId' => User::all()->random()->id,
-            'realEstateId' => RealEstate::all()->random()->id,
+            'realEstateId' => RealEstate::where('status', 'Open')->get()->random()->id,
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Cart;
+use App\Models\RealEstate;
 use Illuminate\Database\Seeder;
 
 class CartSeeder extends Seeder
@@ -14,6 +15,12 @@ class CartSeeder extends Seeder
      */
     public function run()
     {
-        Cart::factory(20)->create();
+        $carts = Cart::factory(20)->create();
+
+        foreach ($carts as $cart) {
+            $realEstate = RealEstate::where('id', $cart->realEstateId)->first();
+            $realEstate->status = 'Cart';
+            $realEstate->save();
+        }
     }
 }

@@ -27,6 +27,16 @@ class UserSeeder extends Seeder
             "updated_at" => Carbon::now(),
         ]);
 
+        User::create([
+            'id' => Str::orderedUuid(),
+            "name" => "Frederic Member",
+            "email" => "frederic1@gmail.com",
+            "password" => bcrypt("aaaaaaaa"),
+            "role" => "member",
+            "created_at" => Carbon::now(),
+            "updated_at" => Carbon::now(),
+        ]);
+
         User::factory(20)->create();
     }
 }

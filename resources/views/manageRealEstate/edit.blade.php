@@ -4,7 +4,7 @@
     <h1>Update Real Estate</h1>
     <div class="d-flex justify-content-center mt-5">
         <div class="card" style="width: 50rem;">
-            <img src="{{ asset('storage/uploads/realEstate/' . $realEstate->image) }}" alt="Office Image">
+            <img src="{{ asset('storage/uploads/realEstate/' . $realEstate->image) }}" alt="Real Estate Image">
         </div>
         <div class="card border border-primary" style="width: 50rem;">
             <div class="card-body">
