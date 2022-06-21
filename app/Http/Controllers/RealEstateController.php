@@ -11,7 +11,7 @@ class RealEstateController extends Controller
 {
     public function buy()
     {
-        $realEstates = RealEstate::where('salesType', '=', 'Sale')->paginate(4);
+        $realEstates = RealEstate::where('salesType', '=', 'Sale')->where('status', '=', 'Open')->paginate(4);
 
         $data = [
             'title' => 'Buy',
@@ -23,7 +23,7 @@ class RealEstateController extends Controller
 
     public function rent()
     {
-        $realEstates = RealEstate::where('salesType', '=', 'Rent')->paginate(4);
+        $realEstates = RealEstate::where('salesType', '=', 'Rent')->where('status', '=', 'Open')->paginate(4);
 
         $data = [
             'title' => 'Rent',
@@ -46,13 +46,17 @@ class RealEstateController extends Controller
         $cart->realEstateId = $realEstateId;
         $cart->save();
 
+        $realEstate = RealEstate::where('id', '=', $cart->realEstateId)->first();
+        $realEstate->status = 'Cart';
+        $realEstate->save();
+
         return redirect()->route('cartPage');
     }
 
     public function cart()
     {
         $cart = Cart::where('userId', '=', auth()->user()->id)->get();
-        $realEstates = RealEstate::whereIn('id', $cart->pluck('realEstateId'))->paginate(4);
+        $realEstates = RealEstate::whereIn('id', $cart->pluck('realEstateId'))->where('status', '=', 'Cart')->paginate(4);
         $data = [
             'title' => 'Cart',
             'realEstates' => $realEstates,
@@ -64,6 +68,9 @@ class RealEstateController extends Controller
     public function removeFromCart($realEstateId)
     {
         $cart = Cart::where('userId', '=', auth()->user()->id)->where('realEstateId', '=', $realEstateId)->first();
+        $realEstate = RealEstate::where('id', '=', $realEstateId)->first();
+        $realEstate->status = 'Open';
+        $realEstate->save();
         $cart->delete();
 
         return redirect()->route('cartPage');
@@ -72,7 +79,11 @@ class RealEstateController extends Controller
     public function checkoutCart()
     {
         $cart = Cart::where('userId', '=', auth()->user()->id)->get();
+
         foreach ($cart as $item) {
+            $realEstate = RealEstate::where('id', '=', $item->realEstateId)->first();
+            $realEstate->status = 'Open';
+            $realEstate->save();
             $item->delete();
         }
 
@@ -81,7 +92,7 @@ class RealEstateController extends Controller
 
     public function index()
     {
-        $realEstates = RealEstate::paginate(4);
+        $realEstates = RealEstate::where('status', '=', 'Open')->paginate(4);
 
         $data = [
             'realEstates' => $realEstates
@@ -150,8 +161,10 @@ class RealEstateController extends Controller
     public function finish($id)
     {
         $realEstate = RealEstate::find($id);
-        $realEstate->status = 'Transaction Completed';
-        $realEstate->save();
+        if ($realEstate->status == 'Cart') {
+            $realEstate->status = 'Transaction Completed';
+            $realEstate->save();
+        }
 
         return redirect()->back();
     }
