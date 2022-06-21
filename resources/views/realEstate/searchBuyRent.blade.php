@@ -5,7 +5,6 @@
     @foreach ($realEstates as $realEstate)
         <form action="{{ route('addToCart', $realEstate->id) }}" method="POST">
             @csrf
-            {{ $realEstate->id }}
             {{ $realEstate->price }}
             {{ $realEstate->location }}
             {{ $realEstate->buildingType }}
@@ -17,6 +16,10 @@
     @if (session('error'))
         <div class="alert alert-danger">
             {{ session('error') }}
+        </div>
+    @elseif (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
         </div>
     @endif
     {{ $realEstates->links() }}

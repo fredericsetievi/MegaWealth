@@ -27,7 +27,7 @@
                     </div>
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" id="checkbox" name="remember"
-                            checked={{ \Illuminate\Support\Facades\Cookie::get('LoginCookie') !== null }}>
+                            {{ \Illuminate\Support\Facades\Cookie::get('LoginCookie') !== null ? 'checked' : '' }}>
                         <label class="form-check-label" for="checkbox">Remember Me</label>
                     </div>
                     {{-- Error Message --}}

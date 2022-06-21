@@ -15,10 +15,13 @@ use App\Http\Controllers\RealEstateController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//comment
-Route::get('/', function () {
-    return view('home.index');
-})->name('homePage');
+
+Route::controller(UserController::class)
+    ->group(function () {
+        Route::get('/', 'indexLogin')->name('loginPage');
+        Route::get('/login', 'indexLogin')->name('loginPage');
+        Route::post('/authenticateRegister', 'authenticateLogin')->name('authenticateLogin');
+    });
 
 Route::prefix('register')
     ->controller(UserController::class)
@@ -27,39 +30,35 @@ Route::prefix('register')
         Route::post('/authenticateLogin', 'authenticateRegister')->name('authenticateRegister');
     });
 
-Route::prefix('login')
-    ->controller(UserController::class)
+Route::group(['prefix' => ''], function () {
+    Route::get('/', [UserController::class, 'indexHome'])->name('homePage');
+    Route::get('/home', [UserController::class, 'indexHome'])->name('homePage');
+    Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+    Route::get('/aboutUs', [OfficeController::class, 'displayOffice'])->name('aboutUsPage');
+});
+
+Route::prefix('realEstate')
+    ->controller(RealEstateController::class)
     ->group(function () {
-        Route::get('/', 'indexLogin')->name('loginPage');
-        Route::post('/authenticateRegister', 'authenticateLogin')->name('authenticateLogin');
+        Route::get('/buy', 'buy')->name('buyPage');
+        Route::get('/rent', 'rent')->name('rentPage');
+        Route::get('/searchResult', 'searchResult')->name('searchResultPage');
+        Route::post('/searchProcess', 'searchProcess')->name('searchProcess');
     });
 
-Route::get('/logout', [UserController::class, 'logout'])->name('logout');
-
-Route::get('/home', [UserController::class, 'indexHome'])->name('homePage');
-
-Route::get('/aboutUs', [OfficeController::class, 'displayOffice'])->name('aboutUsPage');
-
-Route::get('/buy', [RealEstateController::class, 'buy'])->name('buyPage');
-
-Route::get('/rent', [RealEstateController::class, 'rent'])->name('rentPage');
-
-Route::post('/addToCart/{realEstateId}', [RealEstateController::class, 'addToCart'])->name('addToCart');
-
-Route::post('/removeFromCart/{realEstateId}', [RealEstateController::class, 'removeFromCart'])->name('removeFromCart');
-
-Route::post('/checkoutCart', [RealEstateController::class, 'checkoutCart'])->name('checkoutCart');
-
-Route::get('/cart', [RealEstateController::class, 'cart'])->name('cartPage');
-
-Route::post('/search', [RealEstateController::class, 'search'])->name('search');
-
-Route::get('/searchResult', function () {
-    return view('searchResult.index');
-})->name('searchResultPage');
+Route::prefix('cart')
+    ->controller(RealEstateController::class)
+    ->middleware('MemberMiddleware')
+    ->group(function () {
+        Route::get('/', 'cart')->name('cartPage');
+        Route::post('/addToCart/{realEstateId}', 'addToCart')->name('addToCart');
+        Route::post('/removeFromCart/{realEstateId}', 'removeFromCart')->name('removeFromCart');
+        Route::post('/checkoutCart', 'checkoutCart')->name('checkoutCart');
+    });
 
 Route::prefix('manageOffice')
     ->controller(OfficeController::class)
+    ->middleware('AdminMiddleware')
     ->group(function () {
         Route::get('/', 'index')->name('manageOfficePage');
         Route::get('/create', 'create')->name('createOfficePage');
@@ -71,6 +70,7 @@ Route::prefix('manageOffice')
 
 Route::prefix('manageRealEstate')
     ->controller(RealEstateController::class)
+    ->middleware('AdminMiddleware')
     ->group(function () {
         Route::get('/', 'index')->name('manageRealEstatePage');
         Route::get('/create', 'create')->name('createRealEstatePage');

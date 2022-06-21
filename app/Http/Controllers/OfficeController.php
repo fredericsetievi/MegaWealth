@@ -29,12 +29,12 @@ class OfficeController extends Controller
             'offices' => $offices
         ];
 
-        return view('office.index', $data);
+        return view('manageOffice.index', $data);
     }
 
     public function create()
     {
-        return view('office.create');
+        return view('manageOffice.create');
     }
 
     public function store(Request $request)
@@ -69,7 +69,7 @@ class OfficeController extends Controller
     {
         $office = Office::find($id);
 
-        return view('office.edit', compact('office'));
+        return view('manageOffice.edit', compact('office'));
     }
 
     public function update(Request $request, $id)

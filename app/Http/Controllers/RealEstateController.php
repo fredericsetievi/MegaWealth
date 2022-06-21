@@ -21,7 +21,7 @@ class RealEstateController extends Controller
             'realEstates' => $realEstates
         ];
 
-        return view('buyAndRent.index', $data);
+        return view('realEstate.searchBuyRent', $data);
     }
 
     public function rent()
@@ -33,7 +33,7 @@ class RealEstateController extends Controller
             'realEstates' => $realEstates
         ];
 
-        return view('buyAndRent.index', $data);
+        return view('realEstate.searchBuyRent', $data);
     }
 
     public function addToCart($realEstateId)
@@ -56,7 +56,7 @@ class RealEstateController extends Controller
         $realEstate->status = 'Cart';
         $realEstate->save();
 
-        return redirect()->route('cartPage');
+        return redirect()->back()->with('success', 'Real Estate added to cart successfully');
     }
 
     public function cart()
@@ -68,7 +68,7 @@ class RealEstateController extends Controller
             'realEstates' => $realEstates,
         ];
 
-        return view('buyAndRent.cart', $data);
+        return view('realEstate.cart', $data);
     }
 
     public function removeFromCart($realEstateId)
@@ -103,7 +103,7 @@ class RealEstateController extends Controller
         $data = [
             'realEstates' => $realEstates
         ];
-        return view('realEstate.index', $data);
+        return view('manageRealEstate.index', $data);
     }
 
     public function create()
@@ -112,7 +112,7 @@ class RealEstateController extends Controller
             'salesTypes' => self::SALES_TYPE,
             'buildingTypes' => self::BUILDING_TYPE,
         ];
-        return view('realEstate.create', $data);
+        return view('manageRealEstate.create', $data);
     }
 
     public function store(Request $request)
@@ -126,7 +126,7 @@ class RealEstateController extends Controller
         ]);
 
         $realEstate = new RealEstate();
-        $realEstate-> id = Str::orderedUuid();
+        $realEstate->id = Str::orderedUuid();
         $realEstate->salesType = $request->salesType;
         $realEstate->buildingType = $request->buildingType;
         $realEstate->price = $request->price;
@@ -153,7 +153,7 @@ class RealEstateController extends Controller
             'realEstate' => $realEstate,
         ];
 
-        return view('realEstate.edit', $data);
+        return view('manageRealEstate.edit', $data);
     }
 
     public function update(Request $request, $id)
@@ -172,7 +172,7 @@ class RealEstateController extends Controller
         $realEstate->location = $request->location;
         $realEstate->save();
 
-        return  redirect()->route('manageRealEstatePage');
+        return redirect()->route('manageRealEstatePage');
     }
 
     public function finish($id)
@@ -195,8 +195,24 @@ class RealEstateController extends Controller
         $realEstate = RealEstate::find($id);
         $realEstate->delete();
 
-        //YANG ADA DI CART PERLU DHAPUS?
+        //YG DI CART DI HAPUS?
+        $cart = Cart::where('realEstateId', '=', $id)->first();
+        $cart->delete();
 
         return redirect()->back();
+    }
+
+    public function searchProcess(Request $request)
+    {
+        $data = [
+            'realEstates' => '',
+        ];
+
+        return redirect()->route('searchResultPage', $data);
+    }
+
+    public function searchResult()
+    {
+        return view('realEstate.searchBuyRent');
     }
 }
