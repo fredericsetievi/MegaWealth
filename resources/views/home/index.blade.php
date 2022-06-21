@@ -10,7 +10,7 @@
     <div class="d-flex justify-content-center mt-5">
         <div class="top-banner">
             <h1>Find Your Future Home</h1>
-            <form action="{{ route('searchProcess') }}" method="POST">
+            <form action="{{ route('searchResultPage') }}" method="GET">
                 @csrf
                 <div class="search-group d-flex">
                     <div class="col-10 me-2">

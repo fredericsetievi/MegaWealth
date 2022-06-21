@@ -54,11 +54,10 @@ class OfficeController extends Controller
         $office->contactName = $request->contactName;
         $office->phone = $request->phone;
 
-
-        $extImage = $request->berkas->getClientOriginalExtension();
+        $extImage = $request->image->getClientOriginalExtension();
         $nameImage = "office" . time() . "." . $extImage;
-        $moveImage = $request->berkas->storeAs('public/uploads/office', $nameImage);
-        $office->image = asset($nameImage);
+        $moveImage = $request->image->storeAs('public/uploads/office', $nameImage);
+        $office->image = $nameImage;
 
         $office->save();
 

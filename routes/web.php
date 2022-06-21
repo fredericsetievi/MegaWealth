@@ -43,7 +43,6 @@ Route::prefix('realEstate')
         Route::get('/buy', 'buy')->name('buyPage');
         Route::get('/rent', 'rent')->name('rentPage');
         Route::get('/searchResult', 'searchResult')->name('searchResultPage');
-        Route::post('/searchProcess', 'searchProcess')->name('searchProcess');
     });
 
 Route::prefix('cart')

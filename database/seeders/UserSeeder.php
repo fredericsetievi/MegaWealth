@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             "name" => "Frederic",
             "email" => "frederic@gmail.com",
             "password" => bcrypt("password"),
-            "role" => "admin",
+            "role" => "Admin",
             "created_at" => Carbon::now(),
             "updated_at" => Carbon::now(),
         ]);
@@ -32,7 +32,7 @@ class UserSeeder extends Seeder
             "name" => "Frederic Member",
             "email" => "frederic1@gmail.com",
             "password" => bcrypt("aaaaaaaa"),
-            "role" => "member",
+            "role" => "Member",
             "created_at" => Carbon::now(),
             "updated_at" => Carbon::now(),
         ]);

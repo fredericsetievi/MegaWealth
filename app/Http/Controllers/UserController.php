@@ -40,7 +40,7 @@ class UserController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
-        $user->role = "member";
+        $user->role = "Member";
         $user->save();
 
         return redirect()->route('loginPage');

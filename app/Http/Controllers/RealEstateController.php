@@ -62,7 +62,7 @@ class RealEstateController extends Controller
     public function cart()
     {
         $cart = Cart::where('userId', '=', auth()->user()->id)->get();
-        $realEstates = RealEstate::whereIn('id', $cart->pluck('realEstateId'))->where('status', '=', 'Cart')->paginate(4);
+        $realEstates = RealEstate::latest()->whereIn('id', $cart->pluck('realEstateId'))->where('status', '=', 'Cart')->paginate(4);
         $data = [
             'title' => 'Cart',
             'realEstates' => $realEstates,
@@ -132,11 +132,10 @@ class RealEstateController extends Controller
         $realEstate->price = $request->price;
         $realEstate->location = $request->location;
 
-
-        $extImage = $request->berkas->getClientOriginalExtension();
+        $extImage = $request->image->getClientOriginalExtension();
         $nameImage = "realEstate" . time() . "." . $extImage;
-        $moveImage = $request->berkas->storeAs('public/uploads/realEstate', $nameImage);
-        $realEstate->image = asset($nameImage);
+        $moveImage = $request->image->storeAs('public/uploads/realEstate', $nameImage);
+        $realEstate->image = $nameImage;
 
         $realEstate->save();
 
@@ -202,17 +201,15 @@ class RealEstateController extends Controller
         return redirect()->back();
     }
 
-    public function searchProcess(Request $request)
+    public function searchResult(Request $request)
     {
+        $realEstates = RealEstate::where('status', '=', 'Open')->where('location', 'like', '%' . $request->search . '%')->paginate(4);
+
         $data = [
-            'realEstates' => '',
+            'title' => 'Search Result',
+            'realEstates' => $realEstates,
         ];
 
-        return redirect()->route('searchResultPage', $data);
-    }
-
-    public function searchResult()
-    {
-        return view('realEstate.searchBuyRent');
+        return view('realEstate.searchBuyRent', $data);
     }
 }
