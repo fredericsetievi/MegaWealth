@@ -58,7 +58,7 @@ Route::get('/searchResult', function () {
     return view('searchResult.index');
 })->name('searchResultPage');
 
-Route::prefix('manageCompany')
+Route::prefix('manageOffice')
     ->controller(OfficeController::class)
     ->group(function () {
         Route::get('/', 'index')->name('manageOfficePage');
@@ -69,7 +69,7 @@ Route::prefix('manageCompany')
         Route::post('/delete/{id}', 'destroy')->name('deleteOffice');
     });
 
-Route::prefix('realEstate')
+Route::prefix('manageRealEstate')
     ->controller(RealEstateController::class)
     ->group(function () {
         Route::get('/', 'index')->name('manageRealEstatePage');

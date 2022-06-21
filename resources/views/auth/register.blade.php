@@ -8,25 +8,27 @@
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter Your Name Here..."
-                            required>
+                        <input type="text" class="form-control" id="name" name="name"
+                            placeholder="Enter Your Name Here..." value="{{ old('name') }}" required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email address</label>
                         <div class="input-group mb-3">
                             <input type="email" class="form-control" id="email" name="email"
-                                placeholder="Enter Your Email Address Here..." required>
+                                placeholder="Enter Your Email Address Here..." value="{{ old('email') }}" required>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" name="password"
-                            placeholder="Your password must be at least 8 characters." required minlength="8">
+                            placeholder="Your password must be at least 8 characters." value="{{ old('password') }}"
+                            required minlength="8">
                     </div>
                     <div class="mb-3">
                         <label for="confirmPassword" class="form-label">Confirm Password</label>
                         <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
-                            placeholder="Re-type your password" required minlength="8">
+                            placeholder="Re-type your password" value="{{ old('confirmPassword') }}" required
+                            minlength="8">
                     </div>
                     {{-- Error Message --}}
                     @if ($errors->any())

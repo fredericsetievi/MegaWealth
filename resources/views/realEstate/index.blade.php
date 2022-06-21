@@ -16,7 +16,7 @@
             @foreach ($realEstates as $realEstate)
                 <div class="col-md-3 col-sm-6">
                     <div class="card" style="width: 25rem;">
-                        <img src="{{ asset('storage/realEstate/' . $realEstate->image) }}" class="card-img-top"
+                        <img src="{{ asset('storage/uploads/realEstate/' . $realEstate->image) }}" class="card-img-top"
                             alt="...">
                         <div class="card-body">
                             <h4 class="card-title">{{ $realEstate->price }}</h4>

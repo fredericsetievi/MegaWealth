@@ -13,14 +13,15 @@
                         <label for="email" class="form-label">Email address</label>
                         <div class="input-group mb-3">
                             <input type="email" class="form-control" id="email" name="email"
-                                placeholder="Enter Your Email Address Here..." required>
+                                placeholder="Enter Your Email Address Here..." value="{{ old('email') }}" required>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <div class="input-group mb-3">
                             <input type="password" class="form-control" id="password" name="password"
-                                placeholder="Your password must be at least 8 characters." required minlength="8">
+                                placeholder="Your password must be at least 8 characters." value="{{ old('password') }}"
+                                required minlength="8">
                         </div>
                     </div>
                     <div class="mb-3 form-check">

@@ -56,7 +56,7 @@ class OfficeController extends Controller
         $extImage = $request->berkas->getClientOriginalExtension();
         $nameImage = "office" . time() . "." . $extImage;
         $moveImage = $request->berkas->storeAs('public/uploads/office', $nameImage);
-        $office->image = asset('storage/uploads/office/' . $nameImage);
+        $office->image = asset($nameImage);
 
         $office->save();
 

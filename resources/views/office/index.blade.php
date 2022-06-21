@@ -16,7 +16,8 @@
             @foreach ($offices as $office)
                 <div class="col-md-3 col-sm-6">
                     <div class="card" style="width: 25rem;">
-                        <img src="{{ asset('storage/office/' . $office->image) }}" class="card-img-top" alt="...">
+                        <img src="{{ asset('storage/uploads/office/' . $office->image) }}" class="card-img-top"
+                            alt="...">
                         <div class="card-body">
                             <h4 class="card-title">{{ $office->name }}</h4>
                             <h4 class="card-title">{{ $office->location }}</h4>

@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 
 class RealEstateController extends Controller
 {
+    const SALES_TYPE = ['Sale', 'Rent'];
+    const BUILDING_TYPE = ['House', 'Apartment'];
+
     public function buy()
     {
         $realEstates = RealEstate::where('salesType', '=', 'Sale')->where('status', '=', 'Open')->paginate(4);
@@ -35,9 +38,12 @@ class RealEstateController extends Controller
 
     public function addToCart($realEstateId)
     {
-        $alreadyHas = Cart::where('userId', '=', auth()->user()->id)->where('realEstateId', '=', $realEstateId)->first();
-        if ($alreadyHas) {
+        $alreadyHasByOwn = Cart::where('userId', '=', auth()->user()->id)->where('realEstateId', '=', $realEstateId)->first();
+        $alreadyHasByOther = Cart::where('realEstateId', '=', $realEstateId)->first();
+        if ($alreadyHasByOwn) {
             return redirect()->back()->with('error', 'You already have this item in your cart');
+        } else if ($alreadyHasByOther) {
+            return redirect()->back()->with('error', 'This item is already in someone else\'s cart');
         }
 
         $cart = new Cart();
@@ -62,7 +68,7 @@ class RealEstateController extends Controller
             'realEstates' => $realEstates,
         ];
 
-        return view('realEstate.cart', $data);
+        return view('buyAndRent.cart', $data);
     }
 
     public function removeFromCart($realEstateId)
@@ -102,14 +108,18 @@ class RealEstateController extends Controller
 
     public function create()
     {
-        return view('realEstate.create');
+        $data = [
+            'salesTypes' => self::SALES_TYPE,
+            'buildingTypes' => self::BUILDING_TYPE,
+        ];
+        return view('realEstate.create', $data);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'salesType' => 'required',
-            'buildingType' => 'required',
+            'salesType' => 'required|in:' . implode(',', self::SALES_TYPE),
+            'buildingType' => 'required|in:' . implode(',', self::BUILDING_TYPE),
             'price' => 'required',
             'location' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:10240',
@@ -125,7 +135,7 @@ class RealEstateController extends Controller
         $extImage = $request->berkas->getClientOriginalExtension();
         $nameImage = "realEstate" . time() . "." . $extImage;
         $moveImage = $request->berkas->storeAs('public/uploads/realEstate', $nameImage);
-        $realEstate->image = asset('storage/uploads/realEstate/' . $nameImage);
+        $realEstate->image = asset($nameImage);
 
         $realEstate->save();
 
@@ -136,14 +146,20 @@ class RealEstateController extends Controller
     {
         $realEstate = RealEstate::find($id);
 
-        return view('realEstate.edit', compact('realEstate'));
+        $data = [
+            'salesTypes' => self::SALES_TYPE,
+            'buildingTypes' => self::BUILDING_TYPE,
+            'realEstate' => $realEstate,
+        ];
+
+        return view('realEstate.edit', $data);
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'salesType' => 'required',
-            'buildingType' => 'required',
+            'salesType' => 'required|in:' . implode(',', self::SALES_TYPE),
+            'buildingType' => 'required|in:' . implode(',', self::BUILDING_TYPE),
             'price' => 'required',
             'location' => 'required',
         ]);
@@ -164,6 +180,10 @@ class RealEstateController extends Controller
         if ($realEstate->status == 'Cart') {
             $realEstate->status = 'Transaction Completed';
             $realEstate->save();
+
+            //YG DI CART DI HAPUS?
+            $cart = Cart::where('realEstateId', '=', $id)->first();
+            $cart->delete();
         }
 
         return redirect()->back();
@@ -173,6 +193,8 @@ class RealEstateController extends Controller
     {
         $realEstate = RealEstate::find($id);
         $realEstate->delete();
+
+        //YANG ADA DI CART PERLU DHAPUS?
 
         return redirect()->back();
     }

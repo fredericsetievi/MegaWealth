@@ -12,8 +12,11 @@
                         <select class="form-select" aria-label="Default select example" id="salesType" name="salesType"
                             required>
                             <option value="">Choose the type of sales</option>
-                            <option value="Sale">Sale</option>
-                            <option value="Rent">Rent</option>
+                            @foreach ($salesTypes as $salesType)
+                                <option value="{{ $salesType }}"
+                                    {{ old('salesType') == $salesType ? 'selected' : '' }}>
+                                    {{ $salesType }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
@@ -21,19 +24,22 @@
                         <select class="form-select" aria-label="Default select example" id="buildingType"
                             name="buildingType" required>
                             <option value="">Choose the building type</option>
-                            <option value="Apartement">Apartement</option>
-                            <option value="House">House</option>
+                            @foreach ($buildingTypes as $buildingType)
+                                <option value="{{ $buildingType }}"
+                                    {{ old('buildingType') == $buildingType ? 'selected' : '' }}>{{ $buildingType }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
                         <label for="price" class="form-label">Price</label>
                         <input type="text" class="form-control" id="price" name="price"
-                            placeholder="Enter Real Estate Price Here..." required>
+                            placeholder="Enter Real Estate Price Here..." value="{{ old('price') }}" required>
                     </div>
                     <div class="mb-3">
                         <label for="location" class="form-label">Location</label>
                         <input type="text" class="form-control" id="location" name="location"
-                            placeholder="Enter Real Estate Location Here..." required>
+                            placeholder="Enter Real Estate Location Here..." value="{{ old('location') }}" required>
                     </div>
                     <div class="mb-3">
                         <label for="image" class="form-label">Upload the Image</label>
