@@ -8,25 +8,32 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav" style="color: #354696">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link link-light" href="#">Home</a>
+                    <a class="nav-link link-light" href="{{ route('homePage') }}">Home</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link link-light" href="#">About Us</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link link-light" href="#">Buy</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link link-light" href="#">Rent</a>
-                </li>
-                @auth
+                @if (!Gate::allows('isAdmin'))
                     <li class="nav-item">
-                        <a class="nav-link link-light" href="#">Cart</a>
+                        <a class="nav-link link-light" href="{{ route('aboutUsPage') }}">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link link-light" href="{{ route('logout') }}">Logout</a>
+                        <a class="nav-link link-light" href="{{ route('buyPage') }}">Buy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link link-light" href="{{ route('rentPage') }}">Rent</a>
+                    </li>
+                @endif
+
+                @if (Gate::allows('isMember'))
+                    <li class="nav-item">
+                        <a class="nav-link link-light" href="{{ route('cartPage') }}">Cart</a>
+                    </li>
+                @elseif(Gate::allows('isAdmin'))
+                    <li class="nav-item">
+                        <a class="nav-link link-light" href="{{ route('manageOfficePage') }}">Manage Company</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link link-light" href="{{ route('manageRealEstatePage') }}">Manage Real Estate
+                        </a>
                     </li>
                 @else
                     <li class="nav-item">
@@ -36,7 +43,13 @@
                         <a class="nav-link link-light" href="{{ route('registerPage') }}">Register</a>
                     </li>
                 @endauth
-            </ul>
-        </div>
+
+                @if (Gate::allows('isAdmin') || Gate::allows('isMember'))
+                    <li class="nav-item">
+                        <a class="nav-link link-light" href="{{ route('logout') }}">Logout</a>
+                    </li>
+                @endif
+        </ul>
     </div>
+</div>
 </nav>

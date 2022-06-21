@@ -1,11 +1,5 @@
 @extends('layouts.admin.main')
 
-@section('css')
-    <style>
-
-    </style>
-@endsection
-
 @section('content')
     <form action="{{ route('createOfficePage') }}" method="GET">
         @csrf
