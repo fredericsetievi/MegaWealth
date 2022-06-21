@@ -73,10 +73,11 @@ class RealEstateController extends Controller
 
     public function removeFromCart($realEstateId)
     {
-        $cart = Cart::where('userId', '=', auth()->user()->id)->where('realEstateId', '=', $realEstateId)->first();
         $realEstate = RealEstate::where('id', '=', $realEstateId)->first();
         $realEstate->status = 'Open';
         $realEstate->save();
+
+        $cart = Cart::where('userId', '=', auth()->user()->id)->where('realEstateId', '=', $realEstateId)->first();
         $cart->delete();
 
         return redirect()->route('cartPage');
@@ -98,7 +99,7 @@ class RealEstateController extends Controller
 
     public function index()
     {
-        $realEstates = RealEstate::where('status', '=', 'Open')->paginate(4);
+        $realEstates = RealEstate::paginate(4);
 
         $data = [
             'realEstates' => $realEstates
@@ -178,12 +179,12 @@ class RealEstateController extends Controller
     {
         $realEstate = RealEstate::find($id);
         if ($realEstate->status == 'Cart') {
-            $realEstate->status = 'Transaction Completed';
-            $realEstate->save();
-
             //YG DI CART DI HAPUS?
             $cart = Cart::where('realEstateId', '=', $id)->first();
             $cart->delete();
+
+            $realEstate->status = 'Transaction Completed';
+            $realEstate->save();
         }
 
         return redirect()->back();
@@ -191,19 +192,23 @@ class RealEstateController extends Controller
 
     public function destroy($id)
     {
-        $realEstate = RealEstate::find($id);
-        $realEstate->delete();
-
         //YG DI CART DI HAPUS?
         $cart = Cart::where('realEstateId', '=', $id)->first();
         $cart->delete();
+
+        $realEstate = RealEstate::find($id);
+        $realEstate->delete();
 
         return redirect()->back();
     }
 
     public function searchResult(Request $request)
     {
-        $realEstates = RealEstate::where('status', '=', 'Open')->where('location', 'like', '%' . $request->search . '%')->paginate(4);
+        $realEstates = RealEstate::where('status', '=', 'Open')
+            ->where('location', 'like', '%' . $request->search . '%')
+            ->orWhere('buildingType', 'like', '%' . $request->search . '%')
+            ->orWhere('salesType', 'like', '%' . $request->search . '%')
+            ->paginate(4);
 
         $data = [
             'title' => 'Search Result',
