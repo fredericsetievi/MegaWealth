@@ -1,46 +1,56 @@
 @extends('layouts.main')
 
 @section('content')
-    <form action="{{ route('createRealEstatePage') }}" method="GET">
-        @csrf
-        <button type="submit" class="btn btn-primary">+ Add Real Estate</button>
-    </form>
+    <div class="container">
+        <form action="{{ route('createRealEstatePage') }}" method="GET">
+            @csrf
+            <button type="submit" class="btn btn-primary ms-3 mt-4 shadow mb-1">+ Add Real Estate</button>
+        </form>
+    </div>
     <div class="container">
         @if (count($realEstates) > 0)
-            @foreach ($realEstates as $realEstate)
-                <div class="col-md-3 col-sm-6">
-                    <div class="card" style="width: 25rem;">
+        <div class="card border-0">
+            <div class="card-body">
+                <div class="card-group">
+                    @foreach ($realEstates as $realEstate)
+                    <div class="card ms-1 me-1 mb-1 shadow">
                         <img src="{{ asset('storage/uploads/realEstate/' . $realEstate->image) }}" class="card-img-top"
-                            alt="Real Estate Image">
+                            alt="Real Estate Image" style="height:250px">
                         <div class="card-body">
                             <h4>{{ $realEstate->price }}</h4>
                             <h4>{{ $realEstate->buildingType }}</h4>
                             <h4>{{ $realEstate->salesType }}</h4>
-                            <span class="badge bg-success">{{ $realEstate->status }}</span>
-                            {{-- Update Button --}}
-                            <form action="{{ route('editRealEstatePage', $realEstate->id) }}" method="GET">
-                                @csrf
-                                <button type="submit" class="btn btn-primary">Update</button>
-                            </form>
-                            {{-- Delete Button --}}
-                            <form action="{{ route('deleteRealEstate', $realEstate->id) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                            {{-- Finish Button --}}
-                            @if ($realEstate->status == 'Cart')
-                                <form action="{{ route('finishRealEstate', $realEstate->id) }}" method="POST">
+                            <span class="badge bg-success ms-1 mb-2">{{ $realEstate->status }}</span>
+                            <div class="d-flex">
+                                {{-- Update Button --}}
+                                <form action="{{ route('editRealEstatePage', $realEstate->id) }}" method="GET">
                                     @csrf
-                                    <button type="submit" class="btn btn-success">Finish</button>
+                                    <button type="submit" class="btn btn-primary ms-1 me-2">Update</button>
                                 </form>
-                            @endif
+                                {{-- Delete Button --}}
+                                <form action="{{ route('deleteRealEstate', $realEstate->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger ms-2 me-2">Delete</button>
+                                </form>
+                                {{-- Finish Button --}}
+                                @if ($realEstate->status == 'Cart')
+                                    <form action="{{ route('finishRealEstate', $realEstate->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-success ms-2 me-2">Finish</button>
+                                    </form>
+                                @endif
+                            </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
-            @endforeach
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
             {{ $realEstates->links() }}
-        @else
-            No Real Estate
-        @endif
+        </div>
+    @else
+        <h1>No Real Estate</h1>
+    @endif
     </div>
 @endsection

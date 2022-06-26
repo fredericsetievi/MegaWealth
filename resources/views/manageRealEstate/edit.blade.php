@@ -1,13 +1,13 @@
 @extends('layouts.main')
 
 @section('content')
-    <h1>Update Real Estate</h1>
+    <h1 class="ms-5 mt-4">Update Real Estate</h1>
     <div class="d-flex justify-content-center mt-5">
-        <div class="card" style="width: 50rem;">
-            <img src="{{ asset('storage/uploads/realEstate/' . $realEstate->image) }}" alt="Real Estate Image">
+        <div class="card me-3 shadow" style="width: 40rem;">
+            <img src="{{ asset('storage/uploads/realEstate/' . $realEstate->image) }}" alt="Real Estate Image" style="height:500px">
         </div>
-        <div class="card border border-primary" style="width: 50rem;">
-            <div class="card-body">
+        <div class="card border border-primary ms-3" style="width: 40rem;">
+            <div class="card-body shadow">
                 <h1>Add Real Estate</h1>
                 <form action="{{ route('updateRealEstate', $realEstate->id) }}" method="POST">
                     @csrf
