@@ -9,23 +9,28 @@
             <div class="card-body">
                 <div class="card-group">
                     @foreach ($realEstates as $realEstate)
-                    <div class="card ms-1 me-1 shadow">
-                        <img src="{{ asset('storage/uploads/realEstate/' . $realEstate->image) }}" class="card-img-top" style="height: 200px; width:300px">
-                        <div class="card-body">
-                            <h4>{{ $realEstate->price }}</h4>
-                            <h5>{{ $realEstate->location }}</h5>
-                            <span class="badge bg-info">{{ $realEstate->buildingType }}</span>
-                            {{-- Submit Button --}}
-                            <form action="{{ route('addToCart', $realEstate->id) }}" method="POST">
-                                @csrf
+                        <div class="card ms-1 me-1 shadow">
+                            <img src="{{ asset('storage/uploads/realEstate/' . $realEstate->image) }}" class="card-img-top"
+                                style="height: 200px; width:300px">
+                            <div class="card-body">
                                 @if ($realEstate->salesType == 'Sale')
-                                    <button type="submit" class="btn btn-primary">Buy</button>
+                                    <h4>{{ $realEstate->price }}</h4>
                                 @elseif($realEstate->salesType == 'Rent')
-                                    <button type="submit" class="btn btn-primary">Rent</button>
+                                    <h4>{{ $realEstate->price }} / Month</h4>
                                 @endif
-                            </form>
+                                <h5>{{ $realEstate->location }}</h5>
+                                <span class="badge bg-info">{{ $realEstate->buildingType }}</span>
+                                {{-- Submit Button --}}
+                                <form action="{{ route('addToCart', $realEstate->id) }}" method="POST">
+                                    @csrf
+                                    @if ($realEstate->salesType == 'Sale')
+                                        <button type="submit" class="btn btn-primary">Buy</button>
+                                    @elseif($realEstate->salesType == 'Rent')
+                                        <button type="submit" class="btn btn-primary">Rent</button>
+                                    @endif
+                                </form>
+                            </div>
                         </div>
-                    </div>
                     @endforeach
                 </div>
             </div>
