@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder
             OfficeSeeder::class,
             RealEstateSeeder::class,
             CartSeeder::class,
+            BuildingTypeSeeder::class,
+            SalesTypeSeeder::class,
+            StatusRealEstateSeeder::class,
         ]);
     }
 }
