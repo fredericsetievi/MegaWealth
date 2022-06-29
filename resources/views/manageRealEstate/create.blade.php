@@ -8,32 +8,33 @@
                 <form action="{{ route('storeRealEstate') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
-                        <label for="salesType" class="form-label">Sales Type</label>
-                        <select class="form-select" aria-label="Default select example" id="salesType" name="salesType"
+                        <label for="salesTypeId" class="form-label">Sales Type</label>
+                        <select class="form-select" aria-label="Default select example" id="salesTypeId" name="salesTypeId"
                             required>
                             <option value="">Choose the type of sales</option>
                             @foreach ($salesTypes as $salesType)
-                                <option value="{{ $salesType }}"
-                                    {{ old('salesType') == $salesType ? 'selected' : '' }}>
-                                    {{ $salesType }}</option>
+                                <option value="{{ $salesType->id }}"
+                                    {{ old('salesTypeId') == $salesType->id ? 'selected' : '' }}>
+                                    {{ $salesType->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="buildingType" class="form-label">Building Type</label>
-                        <select class="form-select" aria-label="Default select example" id="buildingType"
-                            name="buildingType" required>
+                        <label for="buildingTypeId" class="form-label">Building Type</label>
+                        <select class="form-select" aria-label="Default select example" id="buildingTypeId"
+                            name="buildingTypeId" required>
                             <option value="">Choose the building type</option>
                             @foreach ($buildingTypes as $buildingType)
-                                <option value="{{ $buildingType }}"
-                                    {{ old('buildingType') == $buildingType ? 'selected' : '' }}>{{ $buildingType }}
+                                <option value="{{ $buildingType->id }}"
+                                    {{ old('buildingTypeId') == $buildingType->id ? 'selected' : '' }}>
+                                    {{ $buildingType->name }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
                         <label for="price" class="form-label">Price</label>
-                        <input type="text" class="form-control" id="price" name="price"
+                        <input type="number" class="form-control" id="price" name="price"
                             placeholder="Enter Real Estate Price Here..." value="{{ old('price') }}" required>
                     </div>
                     <div class="mb-3">

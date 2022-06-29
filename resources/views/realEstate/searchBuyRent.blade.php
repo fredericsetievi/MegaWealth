@@ -13,19 +13,19 @@
                             <img src="{{ asset('storage/uploads/realEstate/' . $realEstate->image) }}" class="card-img-top"
                                 style="height: 200px; width:300px">
                             <div class="card-body">
-                                @if ($realEstate->salesType == 'Sale')
+                                @if ($realEstate->salesTypeId == $saleId)
                                     <h4>{{ $realEstate->price }}</h4>
-                                @elseif($realEstate->salesType == 'Rent')
+                                @elseif($realEstate->salesTypeId == $rentId)
                                     <h4>{{ $realEstate->price }} / Month</h4>
                                 @endif
                                 <h5>{{ $realEstate->location }}</h5>
-                                <span class="badge bg-info">{{ $realEstate->buildingType }}</span>
+                                <span class="badge bg-info">{{ $realEstate->buildingType->name }}</span>
                                 {{-- Submit Button --}}
                                 <form action="{{ route('addToCart', $realEstate->id) }}" method="POST">
                                     @csrf
-                                    @if ($realEstate->salesType == 'Sale')
+                                    @if ($realEstate->salesTypeId == $saleId)
                                         <button type="submit" class="btn btn-primary">Buy</button>
-                                    @elseif($realEstate->salesType == 'Rent')
+                                    @elseif($realEstate->salesTypeId == $rentId)
                                         <button type="submit" class="btn btn-primary">Rent</button>
                                     @endif
                                 </form>

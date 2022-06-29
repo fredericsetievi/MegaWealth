@@ -3,8 +3,11 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\SalesType;
+use App\Models\BuildingType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\StatusRealEstate;
 
 class RealEstate extends Model
 {
@@ -18,5 +21,21 @@ class RealEstate extends Model
     public function users()
     {
         return $this->belongsToMany(User::class);
+    }
+
+    // Belongs To
+    public function salesType()
+    {
+        return $this->belongsTo(SalesType::class, 'salesTypeId');
+    }
+
+    public function buildingType()
+    {
+        return $this->belongsTo(BuildingType::class, 'buildingTypeId');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(StatusRealEstate::class, 'statusId');
     }
 }

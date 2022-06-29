@@ -21,7 +21,7 @@ class CartFactory extends Factory
 
         return [
             'id' => Str::orderedUuid(),
-            'userId' => User::all()->random()->id,
+            'userId' => User::where('role', '!=', 'Admin')->inRandomOrder()->first()->id,
             'realEstateId' => RealEstate::where('statusId', $openId)->get()->random()->id,
         ];
     }

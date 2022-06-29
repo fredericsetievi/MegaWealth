@@ -3,21 +3,56 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\SalesType;
 use App\Models\RealEstate;
 use Illuminate\Support\Str;
+use App\Models\BuildingType;
 use Illuminate\Http\Request;
+use App\Models\StatusRealEstate;
 
 class RealEstateController extends Controller
 {
-    const SALES_TYPE = ['Sale', 'Rent'];
-    const BUILDING_TYPE = ['House', 'Apartment'];
+    private $SALES_TYPE, $BUILDING_TYPE, $STATUS;
+    private $sales_type_id, $building_type_id;
+
+    public function __construct()
+    {
+        $this->SALES_TYPE = [
+            'Sale' => SalesType::where('name', '=', 'Sale')->first(),
+            'Rent' => SalesType::where('name', '=', 'Rent')->first(),
+        ];
+
+        $this->BUILDING_TYPE = [
+            'House' => BuildingType::where('name', '=', 'House')->first(),
+            'Apartment' => BuildingType::where('name', '=', 'Apartment')->first(),
+        ];
+
+
+        $this->STATUS = [
+            'Open' => StatusRealEstate::where('name', '=', 'Open')->first(),
+            'Cart' => StatusRealEstate::where('name', '=', 'Cart')->first(),
+            'Completed' => StatusRealEstate::where('name', '=', 'Transaction Completed')->first(),
+        ];
+
+        $this->sales_type_id = collect();
+        foreach ($this->SALES_TYPE as $key => $value) {
+            $this->sales_type_id->push($value->id);
+        }
+
+        $this->building_type_id = collect();
+        foreach ($this->BUILDING_TYPE as $key => $value) {
+            $this->building_type_id->push($value->id);
+        }
+    }
 
     public function buy()
     {
-        $realEstates = RealEstate::where('salesType', '=', 'Sale')->where('status', '=', 'Open')->paginate(4);
+        $realEstates = RealEstate::where('salesTypeId', '=', $this->SALES_TYPE['Sale']->id)->where('statusId', '=', $this->STATUS['Open']->id)->paginate(4);
 
         $data = [
             'title' => 'Buy',
+            'saleId' => $this->SALES_TYPE['Sale']->id,
+            'rentId' => $this->SALES_TYPE['Rent']->id,
             'realEstates' => $realEstates
         ];
 
@@ -26,10 +61,12 @@ class RealEstateController extends Controller
 
     public function rent()
     {
-        $realEstates = RealEstate::where('salesType', '=', 'Rent')->where('status', '=', 'Open')->paginate(4);
+        $realEstates = RealEstate::where('salesTypeId', '=', $this->SALES_TYPE['Rent']->id)->where('statusId', '=', $this->STATUS['Open']->id)->paginate(4);
 
         $data = [
             'title' => 'Rent',
+            'saleId' => $this->SALES_TYPE['Sale']->id,
+            'rentId' => $this->SALES_TYPE['Rent']->id,
             'realEstates' => $realEstates
         ];
 
@@ -53,7 +90,7 @@ class RealEstateController extends Controller
         $cart->save();
 
         $realEstate = RealEstate::where('id', '=', $cart->realEstateId)->first();
-        $realEstate->status = 'Cart';
+        $realEstate->statusId = $this->STATUS['Cart']->id;
         $realEstate->save();
 
         return redirect()->back()->with('success', 'Real Estate added to cart successfully');
@@ -62,10 +99,12 @@ class RealEstateController extends Controller
     public function cart()
     {
         $cart = Cart::where('userId', '=', auth()->user()->id)->get();
-        $realEstates = RealEstate::latest()->whereIn('id', $cart->pluck('realEstateId'))->where('status', '=', 'Cart')->paginate(4);
+        $realEstates = RealEstate::latest()->whereIn('id', $cart->pluck('realEstateId'))->where('statusId', '=', $this->STATUS['Cart']->id)->paginate(4);
         $data = [
             'title' => 'Cart',
             'realEstates' => $realEstates,
+            'saleId' => $this->SALES_TYPE['Sale']->id,
+            'rentId' => $this->SALES_TYPE['Rent']->id,
         ];
 
         return view('realEstate.cart', $data);
@@ -74,7 +113,7 @@ class RealEstateController extends Controller
     public function removeFromCart($realEstateId)
     {
         $realEstate = RealEstate::where('id', '=', $realEstateId)->first();
-        $realEstate->status = 'Open';
+        $realEstate->statusId = $this->STATUS['Open']->id;
         $realEstate->save();
 
         $cart = Cart::where('userId', '=', auth()->user()->id)->where('realEstateId', '=', $realEstateId)->first();
@@ -89,7 +128,7 @@ class RealEstateController extends Controller
 
         foreach ($cart as $item) {
             $realEstate = RealEstate::where('id', '=', $item->realEstateId)->first();
-            $realEstate->status = 'Open';
+            $realEstate->statusId = $this->STATUS['Open']->id;
             $realEstate->save();
             $item->delete();
         }
@@ -102,16 +141,18 @@ class RealEstateController extends Controller
         $realEstates = RealEstate::paginate(4);
 
         $data = [
-            'realEstates' => $realEstates
+            'realEstates' => $realEstates,
+            'cartId' => $this->STATUS['Cart']->id,
         ];
+
         return view('manageRealEstate.index', $data);
     }
 
     public function create()
     {
         $data = [
-            'salesTypes' => self::SALES_TYPE,
-            'buildingTypes' => self::BUILDING_TYPE,
+            'salesTypes' => $this->SALES_TYPE,
+            'buildingTypes' => $this->BUILDING_TYPE,
         ];
         return view('manageRealEstate.create', $data);
     }
@@ -119,17 +160,18 @@ class RealEstateController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'salesType' => 'required|in:' . implode(',', self::SALES_TYPE),
-            'buildingType' => 'required|in:' . implode(',', self::BUILDING_TYPE),
-            'price' => 'required',
+            'salesTypeId' => 'required|in:' . $this->sales_type_id->implode(','),
+            'buildingTypeId' => 'required|in:' . $this->building_type_id->implode(','),
+            'price' => 'required|numeric',
             'location' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:10240',
         ]);
 
         $realEstate = new RealEstate();
         $realEstate->id = Str::orderedUuid();
-        $realEstate->salesType = $request->salesType;
-        $realEstate->buildingType = $request->buildingType;
+        $realEstate->salesTypeId = $request->salesTypeId;
+        $realEstate->buildingTypeId = $request->buildingTypeId;
+        $realEstate->statusId = $this->STATUS['Open']->id;
         $realEstate->price = $request->price;
         $realEstate->location = $request->location;
 
@@ -148,8 +190,8 @@ class RealEstateController extends Controller
         $realEstate = RealEstate::find($id);
 
         $data = [
-            'salesTypes' => self::SALES_TYPE,
-            'buildingTypes' => self::BUILDING_TYPE,
+            'salesTypes' => $this->SALES_TYPE,
+            'buildingTypes' => $this->BUILDING_TYPE,
             'realEstate' => $realEstate,
         ];
 
@@ -159,15 +201,15 @@ class RealEstateController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'salesType' => 'required|in:' . implode(',', self::SALES_TYPE),
-            'buildingType' => 'required|in:' . implode(',', self::BUILDING_TYPE),
-            'price' => 'required',
+            'salesTypeId' => 'required|in:' . $this->sales_type_id->implode(','),
+            'buildingTypeId' => 'required|in:' . $this->building_type_id->implode(','),
+            'price' => 'required|numeric',
             'location' => 'required',
         ]);
 
         $realEstate = RealEstate::find($id);
-        $realEstate->salesType = $request->salesType;
-        $realEstate->buildingType = $request->buildingType;
+        $realEstate->salesTypeId = $request->salesTypeId;
+        $realEstate->buildingTypeId = $request->buildingTypeId;
         $realEstate->price = $request->price;
         $realEstate->location = $request->location;
         $realEstate->save();
@@ -178,12 +220,11 @@ class RealEstateController extends Controller
     public function finish($id)
     {
         $realEstate = RealEstate::find($id);
-        if ($realEstate->status == 'Cart') {
-            //YG DI CART DI HAPUS?
+        if ($realEstate->statusId == $this->STATUS['Cart']->id) {
             $cart = Cart::where('realEstateId', '=', $id)->first();
             $cart->delete();
 
-            $realEstate->status = 'Transaction Completed';
+            $realEstate->statusId = $this->STATUS['Completed']->id;
             $realEstate->save();
         }
 
@@ -192,9 +233,10 @@ class RealEstateController extends Controller
 
     public function destroy($id)
     {
-        //YG DI CART DI HAPUS?
         $cart = Cart::where('realEstateId', '=', $id)->first();
-        $cart->delete();
+        if ($cart != NULL) {
+            $cart->delete();
+        }
 
         $realEstate = RealEstate::find($id);
         $realEstate->delete();
@@ -204,11 +246,16 @@ class RealEstateController extends Controller
 
     public function searchResult(Request $request)
     {
-        $realEstates = RealEstate::where('status', '=', 'Open')
+        $realEstates = RealEstate::where('statusId', '=', $this->STATUS['Open']->id)
             ->where('location', 'like', '%' . $request->search . '%')
-            ->orWhere('buildingType', 'like', '%' . $request->search . '%')
-            ->orWhere('salesType', 'like', '%' . $request->search . '%')
+            ->orWhere('buildingTypeId', 'like', '%' . $request->search . '%')
+            ->orWhere('salesTypeId', 'like', '%' . $request->search . '%')
             ->paginate(4);
+
+        // where (building name = $request->search ) ->id
+
+        //- user: search bar -> search result page
+        // - admin: search bar -> manage property page
 
         $data = [
             'title' => 'Search Result',

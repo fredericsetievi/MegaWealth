@@ -13,9 +13,9 @@ class SalesType extends Model
         'id' => 'string'
     ];
 
-    // Belongs To
-    public function users()
+    // Has Many
+    public function realEstate()
     {
-        return $this->belongsTo(RealEstate::class);
+        return $this->hasMany(RealEstate::class);
     }
 }

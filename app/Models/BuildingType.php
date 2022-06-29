@@ -8,8 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class BuildingType extends Model
 {
     use HasFactory;
-    
+
     protected $casts = [
         'id' => 'string'
     ];
+
+    // Has Many
+    public function realEstate()
+    {
+        return $this->hasMany(RealEstate::class);
+    }
 }

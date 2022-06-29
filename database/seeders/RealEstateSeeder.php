@@ -170,6 +170,6 @@ class RealEstateSeeder extends Seeder
             "image" => 'real13.jpg',
         ]);
 
-        RealEstate::factory(50)->create();
+        RealEstate::factory(30)->create();
     }
 }
