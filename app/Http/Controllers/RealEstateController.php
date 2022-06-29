@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use App\Models\BuildingType;
 use Illuminate\Http\Request;
 use App\Models\StatusRealEstate;
+use Illuminate\Support\Facades\Gate;
 
 class RealEstateController extends Controller
 {
@@ -128,7 +129,7 @@ class RealEstateController extends Controller
 
         foreach ($cart as $item) {
             $realEstate = RealEstate::where('id', '=', $item->realEstateId)->first();
-            $realEstate->statusId = $this->STATUS['Open']->id;
+            $realEstate->statusId = $this->STATUS['Completed']->id;
             $realEstate->save();
             $item->delete();
         }
@@ -246,22 +247,47 @@ class RealEstateController extends Controller
 
     public function searchResult(Request $request)
     {
-        $realEstates = RealEstate::where('statusId', '=', $this->STATUS['Open']->id)
-            ->where('location', 'like', '%' . $request->search . '%')
-            ->orWhere('buildingTypeId', 'like', '%' . $request->search . '%')
-            ->orWhere('salesTypeId', 'like', '%' . $request->search . '%')
-            ->paginate(4);
+        if (str_contains('buy', strtoLower($request->search))) {
+            $request->search = 'Sale';
+        }
 
-        // where (building name = $request->search ) ->id
+        //MASI EROR - KENAPA ADMIN GA MUNCUL SEMUA PAS KLIK PAGINATE YG ERROR
+        if (Gate::allows('isAdmin')) {
+            $realEstates = RealEstate::where('location', 'like', '%' . $request->search . '%')
+                ->orWhereHas('buildingType', function ($query) use ($request) {
+                    $query->where('name', 'like', '%' . $request->search . '%');
+                })
+                ->orWhereHas('salesType', function ($query) use ($request) {
+                    $query->where('name', 'like', '%' . $request->search . '%');
+                })
+                ->paginate(4);
 
-        //- user: search bar -> search result page
-        // - admin: search bar -> manage property page
+            $data = [
+                'title' => $request->search,
+                'realEstates' => $realEstates,
+                'cartId' => $this->STATUS['Cart']->id,
+            ];
 
-        $data = [
-            'title' => 'Search Result',
-            'realEstates' => $realEstates,
-        ];
+            return view('manageRealEstate.index', $data);
+        } else {
+            $realEstates = RealEstate::where('statusId', '=', $this->STATUS['Open']->id)
+                ->where('location', 'like', '%' . $request->search . '%')
+                ->orWhereHas('buildingType', function ($query) use ($request) {
+                    $query->where('name', 'like', '%' . $request->search . '%');
+                })
+                ->orWhereHas('salesType', function ($query) use ($request) {
+                    $query->where('name', 'like', '%' . $request->search . '%');
+                })
+                ->paginate(4);
 
-        return view('realEstate.searchBuyRent', $data);
+            $data = [
+                'title' =>  $request->search,
+                'saleId' => $this->SALES_TYPE['Sale']->id,
+                'rentId' => $this->SALES_TYPE['Rent']->id,
+                'realEstates' => $realEstates,
+            ];
+
+            return view('realEstate.searchBuyRent', $data);
+        }
     }
 }

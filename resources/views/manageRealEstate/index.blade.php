@@ -8,6 +8,11 @@
         </form>
     </div>
     <div class="container">
+        @if (isset($title))
+            <h1 class="card-header text-start ms-2 me-2 border-0" style="background: none">
+                Showing Real Estates For: {{ $title }}
+            </h1>
+        @endif
         @if (count($realEstates) > 0)
             <div class="card border-0">
                 <div class="card-body">
@@ -48,7 +53,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center">
-                {{ $realEstates->links() }}
+                {{ $realEstates->appends(Request::except('page'))->links() }}
             </div>
         @else
             <h1>No Real Estate</h1>

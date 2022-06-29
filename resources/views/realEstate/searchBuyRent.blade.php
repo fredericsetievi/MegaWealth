@@ -4,7 +4,7 @@
     @if (count($realEstates) > 0)
         <div class="card border-0">
             <h1 class="card-header text-start ms-2 me-2 border-0" style="background: none">
-                Showing Real Estates For {{ $title }}
+                Showing Real Estates For: {{ $title }}
             </h1>
             <div class="card-body">
                 <div class="card-group">
@@ -46,7 +46,7 @@
             </div>
         @endif
         <div class="d-flex justify-content-center">
-            {{ $realEstates->links() }}
+            {{ $realEstates->appends(Request::except('page'))->links() }}
         </div>
     @else
         <h1>No Real Estate Available</h1>
