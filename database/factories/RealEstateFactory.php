@@ -29,7 +29,7 @@ class RealEstateFactory extends Factory
         } else if ($buildingType == BuildingType::where('name', '=', 'House')->first()->id) {
             $image = 'house.jpg';
         }
-        $status = StatusRealEstate::where('name', '!=', 'Cart')->inRandomOrder()->first()->id;
+        $openId = StatusRealEstate::where('name', '=', 'Open')->first()->id;
 
         return [
             'id' => Str::orderedUuid(),
@@ -37,7 +37,7 @@ class RealEstateFactory extends Factory
             'buildingTypeId' => $buildingType,
             'price' => $price,
             'location' => $this->faker->address(),
-            'statusId' => $status,
+            'statusId' => $openId,
             'image' => $image,
         ];
     }

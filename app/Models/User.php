@@ -48,6 +48,6 @@ class User extends Authenticatable
     // Many To Many
     public function realEstates()
     {
-        return $this->belongsToMany(RealEstate::class);
+        return $this->belongsToMany(RealEstate::class, 'Carts', 'userId', 'realEstateId');
     }
 }

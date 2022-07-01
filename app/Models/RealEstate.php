@@ -18,9 +18,9 @@ class RealEstate extends Model
     ];
 
     // Many To Many
-    public function users()
+    public function user()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'Carts', 'realEstateId', 'userId');
     }
 
     // Belongs To

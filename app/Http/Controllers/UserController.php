@@ -26,7 +26,7 @@ class UserController extends Controller
     }
 
 
-    public function authenticateRegister(Request $request)
+    public function storeRegister(Request $request)
     {
         $request->validate([
             'name' => 'required',

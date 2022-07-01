@@ -12,7 +12,6 @@
         <div class="card-img-overlay text-center">
             <h1 style="margin-top:50px">Find Your Future Home</h1>
             <form action="{{ route('searchResultPage') }}" method="GET" style="margin-top: 100px">
-                @csrf
                 <div class="search-group d-flex">
                     <div class="col-10 ms-5">
                         <input type="text" class="form-control" id="search" name="search"
@@ -26,23 +25,32 @@
         </div>
     </div>
     <div class="d-flex justify-content-center mt-5">
-        <a href="{{ route('buyPage') }}"><div class="card ms-2 me-2">
-            <img src="{{ asset('storage/assets/buy.jpg') }}" class="card-img" alt="..." style="height:200px; width:300px">
-            <div class="card-body  text-center">
-                <h3>Buy Real Estate</h3>
+        <a href="{{ route('buyPage') }}">
+            <div class="card ms-2 me-2">
+                <img src="{{ asset('storage/assets/buy.jpg') }}" class="card-img" alt="..."
+                    style="height:200px; width:300px">
+                <div class="card-body  text-center">
+                    <h3>Buy Real Estate</h3>
+                </div>
             </div>
-        </div></a>
-        <a href="{{ route('rentPage') }}"><div class="card ms-2 me-2">
-            <img src="{{ asset('storage/assets/rent.jpg') }}" class="card-img" alt="..." style="height:200px; width:300px">
-            <div class="card-body  text-center">
-                <h3>Rent Real Estate</h3>
+        </a>
+        <a href="{{ route('rentPage') }}">
+            <div class="card ms-2 me-2">
+                <img src="{{ asset('storage/assets/rent.jpg') }}" class="card-img" alt="..."
+                    style="height:200px; width:300px">
+                <div class="card-body  text-center">
+                    <h3>Rent Real Estate</h3>
+                </div>
             </div>
-        </div></a>
-        <a href="{{ route('aboutUsPage') }}"><div class="card ms-2 me-2">
-            <img src="{{ asset('storage/assets/aboutUsHome.jpg') }}" class="card-img" alt="..." style="height:200px; width:300px">
-            <div class="card-body text-center">
-                <h3>About Us</h3>
+        </a>
+        <a href="{{ route('aboutUsPage') }}">
+            <div class="card ms-2 me-2">
+                <img src="{{ asset('storage/assets/aboutUsHome.jpg') }}" class="card-img" alt="..."
+                    style="height:200px; width:300px">
+                <div class="card-body text-center">
+                    <h3>About Us</h3>
+                </div>
             </div>
-        </div></a>
+        </a>
     </div>
 @endsection

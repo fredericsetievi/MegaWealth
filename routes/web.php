@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\RealEstateController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,26 +17,17 @@ use App\Http\Controllers\RealEstateController;
 |
 */
 
-Route::controller(UserController::class)
-    ->group(function () {
-        Route::get('/', 'indexLogin')->name('loginPage');
-        Route::get('/login', 'indexLogin')->name('loginPage');
-        Route::post('/authenticateRegister', 'authenticateLogin')->name('authenticateLogin');
-    });
-
-Route::prefix('register')
-    ->controller(UserController::class)
-    ->group(function () {
-        Route::get('/', 'indexRegister')->name('registerPage');
-        Route::post('/authenticateLogin', 'authenticateRegister')->name('authenticateRegister');
-    });
-
 Route::group(['prefix' => ''], function () {
     Route::get('/', [UserController::class, 'indexHome'])->name('homePage');
     Route::get('/home', [UserController::class, 'indexHome'])->name('homePage');
-    Route::get('/logout', [UserController::class, 'logout'])->name('logout');
     Route::get('/aboutUs', [OfficeController::class, 'displayOffice'])->name('aboutUsPage');
+    Route::get('/register', [UserController::class, 'indexRegister'])->name('registerPage');
+    Route::post('/register', [UserController::class,  'storeRegister'])->name('authenticateRegister');
+    Route::get('/login', [UserController::class, 'indexLogin'])->name('loginPage');
+    Route::post('/login', [UserController::class, 'authenticateLogin'])->name('authenticateLogin');
+    Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 });
+
 
 Route::prefix('realEstate')
     ->controller(RealEstateController::class)
@@ -45,15 +37,19 @@ Route::prefix('realEstate')
         Route::get('/searchResult', 'searchResult')->name('searchResultPage');
     });
 
+//KALAU SEARCHBAR KOSONG. TTP SHOW TP SHOW ALL REALESTATE. RUBAH CONTROLLER, TITLE , /WEB/
+
 Route::prefix('cart')
-    ->controller(RealEstateController::class)
+    ->controller(CartController::class)
     ->middleware('MemberMiddleware')
     ->group(function () {
-        Route::get('/', 'cart')->name('cartPage');
-        Route::post('/addToCart/{realEstateId}', 'addToCart')->name('addToCart');
-        Route::post('/removeFromCart/{realEstateId}', 'removeFromCart')->name('removeFromCart');
-        Route::post('/checkoutCart', 'checkoutCart')->name('checkoutCart');
+        Route::get('/', 'index')->name('cartPage');
+        Route::post('/', 'store')->name('storeToCart');
+        Route::delete('/{realEstateId}', 'destroy')->name('removeFromCart');
+        Route::delete('/checkout/{userId}', 'checkout')->name('checkoutCart');
     });
+
+// checkout/id -> id user. di controller benerin lg pake id user nya removeny. view benerin tambahin id
 
 Route::prefix('manageOffice')
     ->controller(OfficeController::class)
@@ -61,10 +57,10 @@ Route::prefix('manageOffice')
     ->group(function () {
         Route::get('/', 'index')->name('manageOfficePage');
         Route::get('/create', 'create')->name('createOfficePage');
-        Route::post('/store', 'store')->name('storeOffice');
-        Route::get('/edit/{id}', 'edit')->name('editOfficePage');
-        Route::post('/update/{id}', 'update')->name('updateOffice');
-        Route::post('/delete/{id}', 'destroy')->name('deleteOffice');
+        Route::post('/', 'store')->name('storeOffice');
+        Route::get('/{office}/edit', 'edit')->name('editOfficePage');
+        Route::put('/{office}', 'update')->name('updateOffice');
+        Route::delete('/{office}', 'destroy')->name('deleteOffice');
     });
 
 Route::prefix('manageRealEstate')
@@ -73,9 +69,9 @@ Route::prefix('manageRealEstate')
     ->group(function () {
         Route::get('/', 'index')->name('manageRealEstatePage');
         Route::get('/create', 'create')->name('createRealEstatePage');
-        Route::post('/store', 'store')->name('storeRealEstate');
-        Route::get('/edit/{id}', 'edit')->name('editRealEstatePage');
-        Route::post('/update/{id}', 'update')->name('updateRealEstate');
-        Route::post('/finish/{id}', 'finish')->name('finishRealEstate');
-        Route::post('/delete/{id}', 'destroy')->name('deleteRealEstate');
+        Route::post('/', 'store')->name('storeRealEstate');
+        Route::get('/{realEstate}/edit', 'edit')->name('editRealEstatePage');
+        Route::put('/{realEstate}', 'update')->name('updateRealEstate');
+        Route::put('/{realEstate}/finish', 'finish')->name('finishRealEstate');
+        Route::delete('/{realEstate}', 'destroy')->name('deleteRealEstate');
     });

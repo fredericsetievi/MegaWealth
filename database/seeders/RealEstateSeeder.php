@@ -28,7 +28,8 @@ class RealEstateSeeder extends Seeder
         $houseId = BuildingType::where('name', '=', 'House')->first()->id;
 
         //StatusRealEstate
-        $openId = StatusRealEstate::where('name', '=', 'open')->first()->id;
+        $openId = StatusRealEstate::where('name', '=', 'Open')->first()->id;
+        $completedId = StatusRealEstate::where('name', '=', 'Transaction Completed')->first()->id;
 
         RealEstate::create([
             'id' => Str::orderedUuid(),
@@ -170,6 +171,27 @@ class RealEstateSeeder extends Seeder
             "image" => 'real13.jpg',
         ]);
 
+        RealEstate::create([
+            'id' => Str::orderedUuid(),
+            "salesTypeId" => $saleId,
+            "buildingTypeId" => $apartmentId,
+            "price" => 71450,
+            "location" => "BSD, Tanggerang",
+            "statusId" => $completedId,
+            "image" => 'apartment.jpg',
+        ]);
+
+        RealEstate::create([
+            'id' => Str::orderedUuid(),
+            "salesTypeId" => $rentId,
+            "buildingTypeId" => $houseId,
+            "price" => 454,
+            "location" => "Serpong, Tanggerang",
+            "statusId" => $completedId,
+            "image" => 'house.jpg',
+        ]);
+
         RealEstate::factory(30)->create();
+        
     }
 }

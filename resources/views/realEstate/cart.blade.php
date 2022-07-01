@@ -23,6 +23,7 @@
                                 {{-- Cancel Button --}}
                                 <form action="{{ route('removeFromCart', $realEstate->id) }}" method="POST"
                                     class="d-flex justify-content-center">
+                                    @method('DELETE')
                                     @csrf
                                     <button type="submit" class="btn btn-danger">Cancel</button>
                                 </form>
@@ -35,7 +36,8 @@
         </div>
         {{-- Checkout Button --}}
         <div class="container d-flex justify-content-center mt-2">
-            <form action="{{ route('checkoutCart') }}" method="POST">
+            <form action="{{ route('checkoutCart',$realEstates->first()->user()->first()->id) }}" method="POST">
+                @method('DELETE')
                 @csrf
                 <button type="submit" class="btn btn-primary">Checkout</button>
             </form>

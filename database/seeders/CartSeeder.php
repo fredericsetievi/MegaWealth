@@ -16,14 +16,7 @@ class CartSeeder extends Seeder
      */
     public function run()
     {
-        $cartId = StatusRealEstate::where('name', '=', 'Cart')->first()->id;
-
-        $carts = Cart::factory(30)->create();
-
-        foreach ($carts as $cart) {
-            $realEstate = RealEstate::where('id', $cart->realEstateId)->first();
-            $realEstate->statusId = $cartId;
-            $realEstate->save();
-        }
+        Cart::factory(15)->create();
+        
     }
 }

@@ -21,8 +21,9 @@
                                 <h5>{{ $realEstate->location }}</h5>
                                 <span class="badge bg-info">{{ $realEstate->buildingType->name }}</span>
                                 {{-- Submit Button --}}
-                                <form action="{{ route('addToCart', $realEstate->id) }}" method="POST">
+                                <form action="{{ route('storeToCart', $realEstate->id) }}" method="POST">
                                     @csrf
+                                    <input type="hidden" name="realEstateId" value="{{ $realEstate->id }}">
                                     @if ($realEstate->salesTypeId == $saleId)
                                         <button type="submit" class="btn btn-primary">Buy</button>
                                     @elseif($realEstate->salesTypeId == $rentId)

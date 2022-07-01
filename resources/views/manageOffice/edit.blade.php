@@ -9,6 +9,7 @@
         <div class="card border border-primary ms-3" style="width: 40rem;">
             <div class="card-body shadow">
                 <form action="{{ route('updateOffice', $office->id) }}" method="POST">
+                    @method('PUT')
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label">Office Name</label>

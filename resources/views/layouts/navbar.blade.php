@@ -46,8 +46,12 @@
 
                 @if (Gate::allows('isAdmin') || Gate::allows('isMember'))
                     <li class="nav-item">
-                        <a class="nav-link link-light" href="{{ route('logout') }}">Logout</a>
+                        <a class="nav-link link-light" href="javascript:void(0);"
+                            onclick="document.getElementById('logout-form').submit();">Logout</a>
                     </li>
+                    <form action="{{ route('logout') }}" method="POST" id="logout-form">
+                        @csrf
+                    </form>
                 @endif
         </ul>
     </div>
