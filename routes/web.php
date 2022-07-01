@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\RealEstateController;
-use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,19 +21,25 @@ Route::group(['prefix' => ''], function () {
     Route::get('/', [UserController::class, 'indexHome'])->name('homePage');
     Route::get('/home', [UserController::class, 'indexHome'])->name('homePage');
     Route::get('/aboutUs', [OfficeController::class, 'displayOffice'])->name('aboutUsPage');
-    Route::get('/register', [UserController::class, 'indexRegister'])->name('registerPage');
-    Route::post('/register', [UserController::class,  'storeRegister'])->name('authenticateRegister');
-    Route::get('/login', [UserController::class, 'indexLogin'])->name('loginPage');
-    Route::post('/login', [UserController::class, 'authenticateLogin'])->name('authenticateLogin');
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 });
+
+Route::prefix('')
+    ->controller(UserController::class)
+    ->middleware('guest')
+    ->group(function () {
+        Route::get('/register', 'indexRegister')->name('registerPage');
+        Route::post('/register',  'storeRegister')->name('authenticateRegister');
+        Route::get('/login', 'indexLogin')->name('loginPage');
+        Route::post('/login', 'authenticateLogin')->name('authenticateLogin');
+    });
 
 
 Route::prefix('realEstate')
     ->controller(RealEstateController::class)
     ->group(function () {
-        Route::get('/buy', 'buy')->name('buyPage');
-        Route::get('/rent', 'rent')->name('rentPage');
+        Route::get('/buy', 'buy')->name('buyPage')->middleware('notAdmin');
+        Route::get('/rent', 'rent')->name('rentPage')->middleware('notAdmin');
         Route::get('/searchResult', 'searchResult')->name('searchResultPage');
     });
 
@@ -41,7 +47,7 @@ Route::prefix('realEstate')
 
 Route::prefix('cart')
     ->controller(CartController::class)
-    ->middleware('MemberMiddleware')
+    ->middleware('member')
     ->group(function () {
         Route::get('/', 'index')->name('cartPage');
         Route::post('/', 'store')->name('storeToCart');
@@ -53,7 +59,7 @@ Route::prefix('cart')
 
 Route::prefix('manageOffice')
     ->controller(OfficeController::class)
-    ->middleware('AdminMiddleware')
+    ->middleware('admin')
     ->group(function () {
         Route::get('/', 'index')->name('manageOfficePage');
         Route::get('/create', 'create')->name('createOfficePage');
@@ -65,7 +71,7 @@ Route::prefix('manageOffice')
 
 Route::prefix('manageRealEstate')
     ->controller(RealEstateController::class)
-    ->middleware('AdminMiddleware')
+    ->middleware('admin')
     ->group(function () {
         Route::get('/', 'index')->name('manageRealEstatePage');
         Route::get('/create', 'create')->name('createRealEstatePage');
