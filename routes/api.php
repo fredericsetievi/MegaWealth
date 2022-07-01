@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('register')
+    ->controller(UserController::class)
+    ->group(function () {
+        Route::get('/', 'indexRegister')->name('registerPage');
+        Route::post('/authenticateLogin', 'authenticateRegister')->name('authenticateRegister');
 });
