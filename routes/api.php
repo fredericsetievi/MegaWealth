@@ -18,9 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('register')
-    ->controller(UserController::class)
+Route::prefix('v1')
     ->group(function () {
-        Route::get('/', 'indexRegister')->name('registerPage');
-        Route::post('/authenticateLogin', 'authenticateRegister')->name('authenticateRegister');
+        Route::post('/register', [ApiRegisterController::class, 'authenticateRegister']);
 });
