@@ -2,10 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\SalesType;
 use App\Models\RealEstate;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Models\BuildingType;
+use Illuminate\Database\Seeder;
+use App\Models\StatusRealEstate;
+use Illuminate\Support\Facades\DB;
 
 class RealEstateSeeder extends Seeder
 {
@@ -16,116 +19,157 @@ class RealEstateSeeder extends Seeder
      */
     public function run()
     {
+        //SalesType
+        $rentId = SalesType::where('name', '=', 'Rent')->first()->id;
+        $saleId = SalesType::where('name', '=', 'Sale')->first()->id;
+
+        //BuildingType
+        $apartmentId = BuildingType::where('name', '=', 'Apartment')->first()->id;
+        $houseId = BuildingType::where('name', '=', 'House')->first()->id;
+
+        //StatusRealEstate
+        $openId = StatusRealEstate::where('name', '=', 'open')->first()->id;
+
         RealEstate::create([
             'id' => Str::orderedUuid(),
-            "salesType" => "Rent",
-            "buildingType" => "Apartement",
-            "price" => "500 / month",
+            "salesTypeId" => $rentId,
+            "buildingTypeId" => $apartmentId,
+            "price" => 500,
             "location" => "Meikarta, Jakarta",
-            "status" => "Open",
+            "statusId" => $openId,
             "image" => 'real11.jpg',
         ]);
 
         RealEstate::create([
             'id' => Str::orderedUuid(),
-            "salesType" => "Rent",
-            "buildingType" => "House",
-            "price" => "700 / month",
+            "salesTypeId" => $rentId,
+            "buildingTypeId" => $houseId,
+            "price" => 910,
+            "location" => "Tanjung Duren, Jakarta",
+            "statusId" => $openId,
+            "image" => 'real14.jpg',
+        ]);
+
+        RealEstate::create([
+            'id' => Str::orderedUuid(),
+            "salesTypeId" => $rentId,
+            "buildingTypeId" => $houseId,
+            "price" => 430,
+            "location" => "Pancoran, Jakarta",
+            "statusId" => $openId,
+            "image" => 'real15.jpg',
+        ]);
+
+        RealEstate::create([
+            'id' => Str::orderedUuid(),
+            "salesTypeId" => $rentId,
+            "buildingTypeId" => $houseId,
+            "price" => 700,
             "location" => "Pluit, Jakarta",
-            "status" => "Open",
+            "statusId" => $openId,
             "image" => 'real1.jpg',
         ]);
 
         RealEstate::create([
             'id' => Str::orderedUuid(),
-            "salesType" => "Rent",
-            "buildingType" => "Apartment",
-            "price" => "600 / month",
+            "salesTypeId" => $rentId,
+            "buildingTypeId" => $apartmentId,
+            "price" => 600,
             "location" => "PIK 1, Jakarta",
-            "status" => "Open",
+            "statusId" => $openId,
             "image" => 'real4.jpg',
         ]);
 
         RealEstate::create([
             'id' => Str::orderedUuid(),
-            "salesType" => "Rent",
-            "buildingType" => "Apartment",
-            "price" => "400 / month",
+            "salesTypeId" => $rentId,
+            "buildingTypeId" => $apartmentId,
+            "price" => 400,
             "location" => "Rajawali, Jakarta",
-            "status" => "Open",
+            "statusId" => $openId,
             "image" => 'real6.jpg',
         ]);
 
         RealEstate::create([
             'id' => Str::orderedUuid(),
-            "salesType" => "Rent",
-            "buildingType" => "Apartment",
-            "price" => "1000 / month",
+            "salesTypeId" => $rentId,
+            "buildingTypeId" => $apartmentId,
+            "price" => 625,
             "location" => "Gandaria, Jakarta",
-            "status" => "Open",
+            "statusId" => $openId,
             "image" => 'real10.jpg',
         ]);
 
         RealEstate::create([
             'id' => Str::orderedUuid(),
-            "salesType" => "Sale",
-            "buildingType" => "House",
-            "price" => "1300",
+            "salesTypeId" => $saleId,
+            "buildingTypeId" => $houseId,
+            "price" => 41300,
             "location" => "Bungur, Jakarta",
-            "status" => "Open",
+            "statusId" => $openId,
             "image" => 'real2.jpg',
         ]);
 
         RealEstate::create([
             'id' => Str::orderedUuid(),
-            "salesType" => "Sale",
-            "buildingType" => "House",
-            "price" => "1800",
+            "salesTypeId" => $saleId,
+            "buildingTypeId" => $houseId,
+            "price" => 15800,
             "location" => "Pondok Indah, Jakarta",
-            "status" => "Open",
+            "statusId" => $openId,
             "image" => 'real3.jpg',
         ]);
 
         RealEstate::create([
             'id' => Str::orderedUuid(),
-            "salesType" => "Sale",
-            "buildingType" => "House",
-            "price" => "2000",
+            "salesTypeId" => $saleId,
+            "buildingTypeId" => $houseId,
+            "price" => 45000,
             "location" => "Pondok Indah, Jakarta",
-            "status" => "Open",
+            "statusId" => $openId,
             "image" => 'real5.jpg',
         ]);
 
         RealEstate::create([
             'id' => Str::orderedUuid(),
-            "salesType" => "Sale",
-            "buildingType" => "House",
-            "price" => "2100",
+            "salesTypeId" => $saleId,
+            "buildingTypeId" => $houseId,
+            "price" => 27100,
             "location" => "PIK 2, Jakarta",
-            "status" => "Open",
+            "statusId" => $openId,
             "image" => 'real7.jpg',
         ]);
 
         RealEstate::create([
             'id' => Str::orderedUuid(),
-            "salesType" => "Sale",
-            "buildingType" => "Apartment",
-            "price" => "1600",
+            "salesTypeId" => $saleId,
+            "buildingTypeId" => $apartmentId,
+            "price" => 19600,
             "location" => "Pluit, Jakarta",
-            "status" => "Open",
+            "statusId" => $openId,
             "image" => 'real8.jpg',
         ]);
 
         RealEstate::create([
             'id' => Str::orderedUuid(),
-            "salesType" => "Sale",
-            "buildingType" => "House",
-            "price" => "1400",
-            "location" => "Sunter, Jakarta",
-            "status" => "Open",
-            "image" => 'real9.jpg',
+            "salesTypeId" => $saleId,
+            "buildingTypeId" => $apartmentId,
+            "price" => 50450,
+            "location" => "Slipi, Jakarta",
+            "statusId" => $openId,
+            "image" => 'real12.jpg',
         ]);
 
-        RealEstate::factory(50)->create();
+        RealEstate::create([
+            'id' => Str::orderedUuid(),
+            "salesTypeId" => $saleId,
+            "buildingTypeId" => $apartmentId,
+            "price" => 61450,
+            "location" => "Serpong, Tanggerang",
+            "statusId" => $openId,
+            "image" => 'real13.jpg',
+        ]);
+
+        RealEstate::factory(30)->create();
     }
 }

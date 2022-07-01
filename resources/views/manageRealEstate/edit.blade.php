@@ -4,7 +4,8 @@
     <h1 class="ms-5 mt-4">Update Real Estate</h1>
     <div class="d-flex justify-content-center mt-5">
         <div class="card me-3 shadow" style="width: 40rem;">
-            <img src="{{ asset('storage/uploads/realEstate/' . $realEstate->image) }}" alt="Real Estate Image" style="height:500px">
+            <img src="{{ asset('storage/uploads/realEstate/' . $realEstate->image) }}" alt="Real Estate Image"
+                style="height:500px">
         </div>
         <div class="card border border-primary ms-3" style="width: 40rem;">
             <div class="card-body shadow">
@@ -12,15 +13,14 @@
                 <form action="{{ route('updateRealEstate', $realEstate->id) }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label for="salesType" class="form-label">Sales Type</label>
-                        <select class="form-select" aria-label="Default select example" id="salesType" name="salesType"
+                        <label for="salesTypeId" class="form-label">Sales Type</label>
+                        <select class="form-select" aria-label="Default select example" id="salesTypeId" name="salesTypeId"
                             required>
-                            {{-- value= --}}
                             <option value="">Choose the type of sales</option>
                             @foreach ($salesTypes as $salesType)
-                                <option value="{{ $salesType }}"
-                                    {{ (old('salesType') == $salesType ? 'selected' : $salesType == $realEstate->salesType) ? 'selected' : '' }}>
-                                    {{ $salesType }}
+                                <option value="{{ $salesType->id }}"
+                                    {{ (old('salesTypeId') == $salesType->id ? 'selected' : $salesType->id == $realEstate->salesTypeId) ? 'selected' : '' }}>
+                                    {{ $salesType->name }}
                                 </option>
                             @endforeach
                         </select>
@@ -28,17 +28,16 @@
                     <div class="mb-3">
                         <label for="buildingType" class="form-label">Building Type</label>
                         <select class="form-select" aria-label="Default select example" id="buildingType"
-                            name="buildingType" required>
-                            {{-- value= --}}
+                            name="buildingTypeId" required>
                             <option value="">Choose the building type</option>
                             @foreach ($buildingTypes as $buildingType)
-                                <option value="{{ $buildingType }}"
-                                    {{ (old('buildingType') == $buildingType
+                                <option value="{{ $buildingType->id }}"
+                                    {{ (old('buildingTypeId') == $buildingType->id
                                             ? 'selected'
-                                            : $buildingType == $realEstate->buildingType)
+                                            : $buildingType->id == $realEstate->buildingTypeId)
                                         ? 'selected'
                                         : '' }}>
-                                    {{ $buildingType }}
+                                    {{ $buildingType->name }}
                                 </option>
                             @endforeach
                         </select>

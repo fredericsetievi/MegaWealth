@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRealEstatesTable extends Migration
+class CreateStatusRealEstatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,9 @@ class CreateRealEstatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('real_estates', function (Blueprint $table) {
+        Schema::create('status_real_estates', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('salesType');
-            $table->string('buildingType');
-            $table->string('price');
-            $table->string('location');
-            $table->string('status')->default('Open');
-            $table->string('image');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ class CreateRealEstatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('real_estates');
+        Schema::dropIfExists('status_real_estates');
     }
 }

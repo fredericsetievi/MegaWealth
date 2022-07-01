@@ -19,8 +19,8 @@ class UserSeeder extends Seeder
     {
         User::create([
             'id' => Str::orderedUuid(),
-            "name" => "Frederic",
-            "email" => "frederic@gmail.com",
+            "name" => "Admin",
+            "email" => "admin@gmail.com",
             "password" => bcrypt("password"),
             "role" => "Admin",
             "created_at" => Carbon::now(),
@@ -29,14 +29,14 @@ class UserSeeder extends Seeder
 
         User::create([
             'id' => Str::orderedUuid(),
-            "name" => "Frederic Member",
-            "email" => "frederic1@gmail.com",
-            "password" => bcrypt("aaaaaaaa"),
+            "name" => "Member",
+            "email" => "member@gmail.com",
+            "password" => bcrypt("password"),
             "role" => "Member",
             "created_at" => Carbon::now(),
             "updated_at" => Carbon::now(),
         ]);
 
-        User::factory(20)->create();
+        User::factory(5)->create();
     }
 }

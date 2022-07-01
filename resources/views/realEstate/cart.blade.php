@@ -7,21 +7,27 @@
             <div class="card-body">
                 <div class="card-group">
                     @foreach ($realEstates as $realEstate)
-                    <div class="card ms-1 me-1 mb-3 shadow">
-                        <img src="{{ asset('storage/uploads/realEstate/' . $realEstate->image) }}" class="card-img-top"
-                        alt="Real Estate Image" style="height: 300px">
-                        <div class="card-body">
-                            <h4>{{ $realEstate->price }}</h4>
-                            <h5>{{ $realEstate->location }}</h5>
-                            <span class="badge bg-info">{{ $realEstate->buildingType }}</span>
-                            <span class="badge bg-warning">{{ date('Y-m-d', strtotime($realEstate->updated_at)) }}</span>
-                            {{-- Cancel Button --}}
-                            <form action="{{ route('removeFromCart', $realEstate->id) }}" method="POST" class="d-flex justify-content-center">
-                                @csrf
-                                <button type="submit" class="btn btn-danger">Cancel</button>
-                            </form>
+                        <div class="card ms-1 me-1 mb-3 shadow">
+                            <img src="{{ asset('storage/uploads/realEstate/' . $realEstate->image) }}" class="card-img-top"
+                                alt="Real Estate Image" style="height: 300px">
+                            <div class="card-body">
+                                @if ($realEstate->salesTypeId == $saleId)
+                                    <h4>{{ $realEstate->price }}</h4>
+                                @elseif($realEstate->salesTypeId == $rentId)
+                                    <h4>{{ $realEstate->price }} / Month</h4>
+                                @endif
+                                <h5>{{ $realEstate->location }}</h5>
+                                <span class="badge bg-info">{{ $realEstate->buildingType->name }}</span>
+                                <span
+                                    class="badge bg-warning">{{ date('Y-m-d', strtotime($realEstate->updated_at)) }}</span>
+                                {{-- Cancel Button --}}
+                                <form action="{{ route('removeFromCart', $realEstate->id) }}" method="POST"
+                                    class="d-flex justify-content-center">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">Cancel</button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
                     @endforeach
                     {{ $realEstates->links() }}
                 </div>
