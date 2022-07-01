@@ -188,7 +188,6 @@ class RealEstateController extends Controller
             $request->search = 'Sale';
         }
 
-        //MASI EROR - KENAPA ADMIN GA MUNCUL SEMUA PAS KLIK PAGINATE YG ERROR
         if (Gate::allows('isAdmin')) {
             $realEstates = RealEstate::where('location', 'like', '%' . $request->search . '%')
                 ->orWhereHas('buildingType', function ($query) use ($request) {

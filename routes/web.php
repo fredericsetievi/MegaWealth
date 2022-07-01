@@ -43,8 +43,6 @@ Route::prefix('realEstate')
         Route::get('/searchResult', 'searchResult')->name('searchResultPage');
     });
 
-//KALAU SEARCHBAR KOSONG. TTP SHOW TP SHOW ALL REALESTATE. RUBAH CONTROLLER, TITLE , /WEB/
-
 Route::prefix('cart')
     ->controller(CartController::class)
     ->middleware('member')
@@ -54,8 +52,6 @@ Route::prefix('cart')
         Route::delete('/{realEstateId}', 'destroy')->name('removeFromCart');
         Route::delete('/checkout/{userId}', 'checkout')->name('checkoutCart');
     });
-
-// checkout/id -> id user. di controller benerin lg pake id user nya removeny. view benerin tambahin id
 
 Route::prefix('manageOffice')
     ->controller(OfficeController::class)

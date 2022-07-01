@@ -15,11 +15,11 @@ class CreateRealEstatesTable extends Migration
     {
         Schema::create('real_estates', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('salesTypeId')->references('id')->on('sales_types')->constrained();
-            $table->foreignUuid('buildingTypeId')->references('id')->on('building_types')->constrained();
+            $table->foreignUuid('salesTypeId')->references('id')->on('sales_types');
+            $table->foreignUuid('buildingTypeId')->references('id')->on('building_types');
             $table->integer('price');
             $table->string('location');
-            $table->foreignUuid('statusId')->references('id')->on('status_real_estates')->constrained()->default('Open');
+            $table->foreignUuid('statusId')->references('id')->on('status_real_estates')->default('Open');
             $table->string('image');
             $table->timestamps();
         });
