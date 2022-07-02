@@ -74,69 +74,6 @@ class RealEstateController extends Controller
         return view('realEstate.searchBuyRent', $data);
     }
 
-    public function addToCart($realEstateId)
-    {
-        $alreadyHasByOwn = Cart::where('userId', '=', auth()->user()->id)->where('realEstateId', '=', $realEstateId)->first();
-        $alreadyHasByOther = Cart::where('realEstateId', '=', $realEstateId)->first();
-        if ($alreadyHasByOwn) {
-            return redirect()->back()->with('error', 'You already have this item in your cart');
-        } else if ($alreadyHasByOther) {
-            return redirect()->back()->with('error', 'This item is already in someone else\'s cart');
-        }
-
-        $cart = new Cart();
-        $cart->id = Str::uuid();
-        $cart->userId = auth()->user()->id;
-        $cart->realEstateId = $realEstateId;
-        $cart->save();
-
-        $realEstate = RealEstate::where('id', '=', $cart->realEstateId)->first();
-        $realEstate->statusId = $this->STATUS['Cart']->id;
-        $realEstate->save();
-
-        return redirect()->back()->with('success', 'Real Estate added to cart successfully');
-    }
-
-    public function cart()
-    {
-        $cart = Cart::where('userId', '=', auth()->user()->id)->get();
-        $realEstates = RealEstate::latest()->whereIn('id', $cart->pluck('realEstateId'))->where('statusId', '=', $this->STATUS['Cart']->id)->paginate(4);
-        $data = [
-            'title' => 'Cart',
-            'realEstates' => $realEstates,
-            'saleId' => $this->SALES_TYPE['Sale']->id,
-            'rentId' => $this->SALES_TYPE['Rent']->id,
-        ];
-
-        return view('realEstate.cart', $data);
-    }
-
-    public function removeFromCart($realEstateId)
-    {
-        $realEstate = RealEstate::where('id', '=', $realEstateId)->first();
-        $realEstate->statusId = $this->STATUS['Open']->id;
-        $realEstate->save();
-
-        $cart = Cart::where('userId', '=', auth()->user()->id)->where('realEstateId', '=', $realEstateId)->first();
-        $cart->delete();
-
-        return redirect()->route('cartPage');
-    }
-
-    public function checkoutCart()
-    {
-        $cart = Cart::where('userId', '=', auth()->user()->id)->get();
-
-        foreach ($cart as $item) {
-            $realEstate = RealEstate::where('id', '=', $item->realEstateId)->first();
-            $realEstate->statusId = $this->STATUS['Completed']->id;
-            $realEstate->save();
-            $item->delete();
-        }
-
-        return redirect()->route('homePage')->with('success', 'Checkout Successful');
-    }
-
     public function index()
     {
         $realEstates = RealEstate::paginate(4);
@@ -251,7 +188,6 @@ class RealEstateController extends Controller
             $request->search = 'Sale';
         }
 
-        //MASI EROR - KENAPA ADMIN GA MUNCUL SEMUA PAS KLIK PAGINATE YG ERROR
         if (Gate::allows('isAdmin')) {
             $realEstates = RealEstate::where('location', 'like', '%' . $request->search . '%')
                 ->orWhereHas('buildingType', function ($query) use ($request) {

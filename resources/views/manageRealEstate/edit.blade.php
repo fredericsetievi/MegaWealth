@@ -11,6 +11,7 @@
             <div class="card-body shadow">
                 <h1>Add Real Estate</h1>
                 <form action="{{ route('updateRealEstate', $realEstate->id) }}" method="POST">
+                    @method('PUT')
                     @csrf
                     <div class="mb-3">
                         <label for="salesTypeId" class="form-label">Sales Type</label>

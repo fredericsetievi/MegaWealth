@@ -3,7 +3,6 @@
 @section('content')
     <div class="container">
         <form action="{{ route('createRealEstatePage') }}" method="GET">
-            @csrf
             <button type="submit" class="btn btn-primary ms-3 mt-4 shadow mb-1">+ Add Real Estate</button>
         </form>
     </div>
@@ -29,11 +28,11 @@
                                     <div class="d-flex">
                                         {{-- Update Button --}}
                                         <form action="{{ route('editRealEstatePage', $realEstate->id) }}" method="GET">
-                                            @csrf
                                             <button type="submit" class="btn btn-primary ms-1 me-2">Update</button>
                                         </form>
                                         {{-- Delete Button --}}
                                         <form action="{{ route('deleteRealEstate', $realEstate->id) }}" method="POST">
+                                            @method('DELETE')
                                             @csrf
                                             <button type="submit" class="btn btn-danger ms-2 me-2">Delete</button>
                                         </form>
@@ -41,6 +40,7 @@
                                         @if ($realEstate->statusId == $cartId)
                                             <form action="{{ route('finishRealEstate', $realEstate->id) }}"
                                                 method="POST">
+                                                @method('PUT')
                                                 @csrf
                                                 <button type="submit" class="btn btn-success ms-2 me-2">Finish</button>
                                             </form>
