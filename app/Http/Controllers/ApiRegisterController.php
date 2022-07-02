@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,10 +24,12 @@ class ApiRegisterController extends Controller
             ]);
         }else{
             $credentials = [
+                'id' => Str::orderedUuid(),
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
             ];
+
             User::create($credentials);
 
             return response()->json([
