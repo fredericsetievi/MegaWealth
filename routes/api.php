@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ApiRegisterController;
+use App\Http\Controllers\RegisterApiController;
+use App\Http\Controllers\LoginApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,5 +22,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('v1')
     ->group(function () {
-        Route::post('/register', [ApiRegisterController::class, 'authenticateRegister']);
-});
+        Route::post('/register', [RegisterApiController::class, 'authenticateRegister']);
+        Route::post('/login', [LoginApiController::class, 'authenticateLogin']);
+    });
+
+    
+// Client ID: 1
+// Client secret: 4cbxPuZF3Q1BAR3It2WYdGobKeoXBYrRbCSm1pCS
+// Password grant client created successfully.
+// Client ID: 2
+// Client secret: lq04vfU8kjWch8Y6Ll3aZhGHsycwAIsU7miARQpj
