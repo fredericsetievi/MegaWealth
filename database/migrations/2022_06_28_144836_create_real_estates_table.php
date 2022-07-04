@@ -17,7 +17,7 @@ class CreateRealEstatesTable extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('salesTypeId')->references('id')->on('sales_types');
             $table->foreignUuid('buildingTypeId')->references('id')->on('building_types');
-            $table->integer('price');
+            $table->bigInteger('price');
             $table->string('location');
             $table->foreignUuid('statusId')->references('id')->on('status_real_estates')->default('Open');
             $table->string('image');

@@ -6,6 +6,10 @@
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
+    @elseif (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
     @endif
     <div class="card bg-dark text-white mb-3">
         <img src="{{ asset('storage/assets/bannerHome.jpg') }}" class="card-img" alt="Office Image" style="height: 450px">
@@ -25,32 +29,53 @@
         </div>
     </div>
     <div class="d-flex justify-content-center mt-5">
-        <a href="{{ route('buyPage') }}">
-            <div class="card ms-2 me-2">
-                <img src="{{ asset('storage/assets/buy.jpg') }}" class="card-img" alt="..."
-                    style="height:200px; width:300px">
-                <div class="card-body  text-center">
-                    <h3>Buy Real Estate</h3>
+        @if (Gate::allows('isAdmin'))
+            <a href="{{ route('manageRealEstatePage') }}">
+                <div class="card ms-2 me-2">
+                    <img src="{{ asset('storage/assets/buy.jpg') }}" class="card-img" alt="Real Estate Image"
+                        style="height:200px; width:300px">
+                    <div class="card-body text-center">
+                        <h3>Manage Real Estate</h3>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a href="{{ route('rentPage') }}">
-            <div class="card ms-2 me-2">
-                <img src="{{ asset('storage/assets/rent.jpg') }}" class="card-img" alt="..."
-                    style="height:200px; width:300px">
-                <div class="card-body  text-center">
-                    <h3>Rent Real Estate</h3>
+            </a>
+            <a href="{{ route('manageOfficePage') }}">
+                <div class="card ms-2 me-2">
+                    <img src="{{ asset('storage/assets/aboutUsHome.jpg') }}" class="card-img" alt="Office Image"
+                        style="height:200px; width:300px">
+                    <div class="card-body  text-center">
+                        <h3>Manage Company</h3>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a href="{{ route('aboutUsPage') }}">
-            <div class="card ms-2 me-2">
-                <img src="{{ asset('storage/assets/aboutUsHome.jpg') }}" class="card-img" alt="..."
-                    style="height:200px; width:300px">
-                <div class="card-body text-center">
-                    <h3>About Us</h3>
+            </a>
+        @else
+            <a href="{{ route('buyPage') }}">
+                <div class="card ms-2 me-2">
+                    <img src="{{ asset('storage/assets/buy.jpg') }}" class="card-img" alt="Real Estate Image"
+                        style="height:200px; width:300px">
+                    <div class="card-body  text-center">
+                        <h3>Buy Real Estate</h3>
+                    </div>
                 </div>
-            </div>
-        </a>
+            </a>
+            <a href="{{ route('rentPage') }}">
+                <div class="card ms-2 me-2">
+                    <img src="{{ asset('storage/assets/rent.jpg') }}" class="card-img" alt="Real Estate Image"
+                        style="height:200px; width:300px">
+                    <div class="card-body  text-center">
+                        <h3>Rent Real Estate</h3>
+                    </div>
+                </div>
+            </a>
+            <a href="{{ route('aboutUsPage') }}">
+                <div class="card ms-2 me-2">
+                    <img src="{{ asset('storage/assets/aboutUsHome.jpg') }}" class="card-img" alt="Office Image"
+                        style="height:200px; width:300px">
+                    <div class="card-body text-center">
+                        <h3>About Us</h3>
+                    </div>
+                </div>
+            </a>
+        @endif
     </div>
 @endsection

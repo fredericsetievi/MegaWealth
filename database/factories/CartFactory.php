@@ -10,14 +10,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CartFactory extends Factory
 {
-    private $openId, $cartId;
-
-    // public function __construct()
-    // {
-    //     $this->openId = StatusRealEstate::where('name', '=', 'Open')->first()->id;
-    //     $this->cartId = StatusRealEstate::where('name', '=', 'Cart')->first()->id;
-    // }
-
     /**
      * Define the model's default state.
      *

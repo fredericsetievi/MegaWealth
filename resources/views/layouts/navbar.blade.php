@@ -42,7 +42,7 @@
                     <li class="nav-item">
                         <a class="nav-link link-light" href="{{ route('registerPage') }}">Register</a>
                     </li>
-                @endauth
+                @endif
 
                 @if (Gate::allows('isAdmin') || Gate::allows('isMember'))
                     <li class="nav-item">
@@ -53,7 +53,7 @@
                         @csrf
                     </form>
                 @endif
-        </ul>
+            </ul>
+        </div>
     </div>
-</div>
 </nav>

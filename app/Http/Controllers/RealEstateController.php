@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\SalesType;
 use App\Models\RealEstate;
+use App\Models\Transaction;
 use Illuminate\Support\Str;
 use App\Models\BuildingType;
 use Illuminate\Http\Request;
@@ -19,20 +20,20 @@ class RealEstateController extends Controller
     public function __construct()
     {
         $this->SALES_TYPE = [
-            'Sale' => SalesType::where('name', '=', 'Sale')->first(),
-            'Rent' => SalesType::where('name', '=', 'Rent')->first(),
+            'Sale' => SalesType::where('name', 'Sale')->first(),
+            'Rent' => SalesType::where('name', 'Rent')->first(),
         ];
 
         $this->BUILDING_TYPE = [
-            'House' => BuildingType::where('name', '=', 'House')->first(),
-            'Apartment' => BuildingType::where('name', '=', 'Apartment')->first(),
+            'House' => BuildingType::where('name', 'House')->first(),
+            'Apartment' => BuildingType::where('name', 'Apartment')->first(),
         ];
 
 
         $this->STATUS = [
-            'Open' => StatusRealEstate::where('name', '=', 'Open')->first(),
-            'Cart' => StatusRealEstate::where('name', '=', 'Cart')->first(),
-            'Completed' => StatusRealEstate::where('name', '=', 'Transaction Completed')->first(),
+            'Open' => StatusRealEstate::where('name', 'Open')->first(),
+            'Cart' => StatusRealEstate::where('name', 'Cart')->first(),
+            'Completed' => StatusRealEstate::where('name', 'Transaction Completed')->first(),
         ];
 
         $this->sales_type_id = collect();
@@ -48,7 +49,7 @@ class RealEstateController extends Controller
 
     public function buy()
     {
-        $realEstates = RealEstate::where('salesTypeId', '=', $this->SALES_TYPE['Sale']->id)->where('statusId', '=', $this->STATUS['Open']->id)->paginate(4);
+        $realEstates = RealEstate::where('salesTypeId', $this->SALES_TYPE['Sale']->id)->where('statusId', $this->STATUS['Open']->id)->paginate(4);
 
         $data = [
             'title' => 'Buy',
@@ -62,7 +63,7 @@ class RealEstateController extends Controller
 
     public function rent()
     {
-        $realEstates = RealEstate::where('salesTypeId', '=', $this->SALES_TYPE['Rent']->id)->where('statusId', '=', $this->STATUS['Open']->id)->paginate(4);
+        $realEstates = RealEstate::where('salesTypeId', $this->SALES_TYPE['Rent']->id)->where('statusId', $this->STATUS['Open']->id)->paginate(4);
 
         $data = [
             'title' => 'Rent',
@@ -159,9 +160,18 @@ class RealEstateController extends Controller
     {
         $realEstate = RealEstate::find($id);
         if ($realEstate->statusId == $this->STATUS['Cart']->id) {
-            $cart = Cart::where('realEstateId', '=', $id)->first();
+            // delete real estate on user cart
+            $cart = Cart::where('realEstateId', $id)->first();
             $cart->delete();
 
+            // add new transaction
+            $transaction = new Transaction();
+            $transaction->id = Str::orderedUuid();
+            $transaction->userId = $cart->userId;
+            $transaction->realEstateId = $id;
+            $transaction->save();
+
+            // update real estate status to completed
             $realEstate->statusId = $this->STATUS['Completed']->id;
             $realEstate->save();
         }
@@ -171,7 +181,7 @@ class RealEstateController extends Controller
 
     public function destroy($id)
     {
-        $cart = Cart::where('realEstateId', '=', $id)->first();
+        $cart = Cart::where('realEstateId', $id)->first();
         if ($cart != NULL) {
             $cart->delete();
         }
@@ -184,7 +194,9 @@ class RealEstateController extends Controller
 
     public function searchResult(Request $request)
     {
-        if (str_contains('buy', strtoLower($request->search))) {
+        if ($request->search == '') {
+            return redirect()->back()->with('error', 'Please enter keyword to search!');
+        } else if (str_contains('buy', strtoLower($request->search))) {
             $request->search = 'Sale';
         }
 
@@ -206,7 +218,7 @@ class RealEstateController extends Controller
 
             return view('manageRealEstate.index', $data);
         } else {
-            $realEstates = RealEstate::where('statusId', '=', $this->STATUS['Open']->id)
+            $realEstates = RealEstate::where('statusId', $this->STATUS['Open']->id)
                 ->where('location', 'like', '%' . $request->search . '%')
                 ->orWhereHas('buildingType', function ($query) use ($request) {
                     $query->where('name', 'like', '%' . $request->search . '%');
