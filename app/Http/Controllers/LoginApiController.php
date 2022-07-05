@@ -20,7 +20,7 @@ class LoginApiController extends Controller
             $token = $user->createToken('Bearer Token')->accessToken;
 
             return response()->json([
-                'status' => 'Login Success.',
+                'status' => 'Login Success',
                 'Token' => $token,
             ]);
         } else {

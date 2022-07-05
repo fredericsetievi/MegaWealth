@@ -12,12 +12,19 @@ class TransactionApiController extends Controller
 {
     public function show($email)
     {
-        $user = User::where('email', $email)->get();
+        $user = User::where('email', $email)->first();
+        if ($user == null) {
+            return response()->json([
+                'status' => 'false',
+                'message' => 'Email Unauthenticated',
+            ]);
+        }
+
         $transactions = Transaction::where('userId', $user->id)->get();
 
         $data = new Collection();
         foreach ($transactions as $transaction) {
-            $realEstate = RealEstate::where('id', $transaction->realEstateId)->get();
+            $realEstate = RealEstate::where('id', $transaction->realEstateId)->first();
             $newData = [
                 'transaction_date' => $transaction->created_at->toDateString(),
                 'transaction_id' => $transaction->id,
@@ -31,12 +38,11 @@ class TransactionApiController extends Controller
             $data->push($newData);
         }
 
-
         return response()->json([
             'data' => $data,
             'user_id' => [
                 'id' => $user->id
-            ]
+            ],
         ]);
     }
 }

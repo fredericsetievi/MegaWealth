@@ -25,12 +25,12 @@ Route::prefix('v1')
     ->group(function () {
         Route::post('/register', [RegisterApiController::class, 'authenticateRegister']);
         Route::post('/login', [LoginApiController::class, 'authenticateLogin']);
-        Route::middleware('auth:api')->get('/transaction/{email}', [TransactionApiController::class, 'show']);
+        Route::middleware('auth:api')->get('/transactions/{email}', [TransactionApiController::class, 'show']);
     });
 
     
     // Client ID: 1
-    // Client secret: DhCafXLAQ9IZgUBvJ8eo8kScdDvSgTJdB3IDo1Ja
+    // Client secret: 6flB8E6Hr5Z2zChbnuUGvRINlKrp8WfQfVRwoULS
     // Password grant client created successfully.
     // Client ID: 2
-    // Client secret: 5vmKK1i2E04sPooN4H4Lq4DbFrpaeRnoMzNpGJYT
+    // Client secret: kJfUJuSIBq2dgGryzaqjLIOFKjNcf2LZjJmLhvPK
