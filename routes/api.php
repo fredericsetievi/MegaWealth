@@ -28,9 +28,9 @@ Route::prefix('v1')
         Route::middleware('auth:api')->get('/transactions/{email}', [TransactionApiController::class, 'show']);
     });
 
-    
-    // Client ID: 1
-    // Client secret: 6flB8E6Hr5Z2zChbnuUGvRINlKrp8WfQfVRwoULS
-    // Password grant client created successfully.
-    // Client ID: 2
-    // Client secret: kJfUJuSIBq2dgGryzaqjLIOFKjNcf2LZjJmLhvPK
+
+// Client ID: 96b5c9fe-1854-4c3a-96a8-226718eef576
+// Client secret: M9k6ktLZFpGWJMlcjeBcFzZJHIbBjAE4orCu96S4
+// Password grant client created successfully.
+// Client ID: 96b5c9fe-ac38-4f13-82e0-b353d8b803f1
+// Client secret: xYJgw4dDCPBG29bXr5ZKV6vl8NnaZpbWHZzh2V7h
