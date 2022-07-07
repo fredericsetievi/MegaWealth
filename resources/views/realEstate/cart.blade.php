@@ -30,9 +30,11 @@
                             </div>
                         </div>
                     @endforeach
-                    {{ $realEstates->links() }}
                 </div>
             </div>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            {{ $realEstates->links() }}
         </div>
         {{-- Checkout Button --}}
         <div class="container d-flex justify-content-center mt-2">

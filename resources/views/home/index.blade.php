@@ -1,5 +1,13 @@
 @extends('layouts.main')
 
+@section('css')
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
+@endsection
+
 @section('content')
     {{-- Success Message --}}
     @if (session('success'))
@@ -12,16 +20,17 @@
         </div>
     @endif
     <div class="card bg-dark text-white mb-3">
-        <img src="{{ asset('storage/assets/bannerHome.jpg') }}" class="card-img" alt="Office Image" style="height: 450px">
+        <img src="{{ asset('storage/assets/bannerHome.jpg') }}" class="card-img" alt="Office Image"
+            style="height: 450px; object-fit: cover">
         <div class="card-img-overlay text-center">
-            <h1 style="margin-top:50px">Find Your Future Home</h1>
-            <form action="{{ route('searchResultPage') }}" method="GET" style="margin-top: 100px">
-                <div class="search-group d-flex">
-                    <div class="col-10 ms-5">
+            <h1 style="margin-top:130px">Find Your Future Home</h1>
+            <form action="{{ route('searchResultPage') }}" method="GET" style="margin-top: 40px">
+                <div class="search-group d-flex" style="justify-content: center">
+                    <div class="col-8 ms-5">
                         <input type="text" class="form-control" id="search" name="search"
                             placeholder="Enter a City, Property Type, Buy or Rent..." required>
                     </div>
-                    <div class="col-2 d-flex justify-content-start ms-4">
+                    <div class="col-1 d-flex ms-4">
                         <button type="submit" class="btn btn-primary">Search</button>
                     </div>
                 </div>
@@ -30,7 +39,7 @@
     </div>
     <div class="d-flex justify-content-center mt-5">
         @if (Gate::allows('isAdmin'))
-            <a href="{{ route('manageRealEstatePage') }}">
+            <a href="{{ route('manageRealEstatePage') }}" style="text-decoration: none">
                 <div class="card ms-2 me-2">
                     <img src="{{ asset('storage/assets/buy.jpg') }}" class="card-img" alt="Real Estate Image"
                         style="height:200px; width:300px">

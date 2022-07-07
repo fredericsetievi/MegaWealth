@@ -4,7 +4,8 @@
     <h1 class="ms-5 mt-4">Update Office</h1>
     <div class="d-flex justify-content-center mt-5">
         <div class="card me-3 shadow" style="width: 40rem;">
-            <img src="{{ asset('storage/uploads/office/' . $office->image) }}" alt="Office Image" style="height:500px">
+            <img src="{{ asset('storage/uploads/office/' . $office->image) }}" alt="Office Image"
+                style="height:500px; object-fit: cover">
         </div>
         <div class="card border border-primary ms-3" style="width: 40rem;">
             <div class="card-body shadow">

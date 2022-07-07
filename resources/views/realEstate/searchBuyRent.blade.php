@@ -46,7 +46,7 @@
                 {{ session('success') }}
             </div>
         @endif
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center mt-5">
             {{ $realEstates->appends(Request::except('page'))->links() }}
         </div>
     @else

@@ -29,8 +29,8 @@ Route::prefix('v1')
     });
 
 
-// Client ID: 96b5c9fe-1854-4c3a-96a8-226718eef576
-// Client secret: M9k6ktLZFpGWJMlcjeBcFzZJHIbBjAE4orCu96S4
-// Password grant client created successfully.
-// Client ID: 96b5c9fe-ac38-4f13-82e0-b353d8b803f1
-// Client secret: xYJgw4dDCPBG29bXr5ZKV6vl8NnaZpbWHZzh2V7h
+    // Client ID: 96b8b4dc-55ad-4af6-9c1e-230742352713
+    // Client secret: gpXvBknPSiyvlafRJ4zDLv8lJjJO0Rz9VZSF4T8F
+    // Password grant client created successfully.
+    // Client ID: 96b8b4dd-f3dc-43e1-a5ff-80485b41e065
+    // Client secret: 0cdBKJ57hp02aQww0GwkFD6M6nswjvR4yr6LlTdO

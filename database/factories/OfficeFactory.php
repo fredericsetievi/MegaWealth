@@ -20,7 +20,7 @@ class OfficeFactory extends Factory
             'address' => $this->faker->address(),
             'contactName' => $this->faker->name(),
             'phone' => $this->faker->phoneNumber(),
-            'image' => '',
+            'image' => 'office.jpg',
         ];
     }
 }
