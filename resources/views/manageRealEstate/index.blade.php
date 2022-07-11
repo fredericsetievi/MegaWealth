@@ -1,6 +1,16 @@
 @extends('layouts.main')
 
 @section('content')
+    {{-- Success Message --}}
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @elseif (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="container">
         <form action="{{ route('createRealEstatePage') }}" method="GET">
             <button type="submit" class="btn btn-primary ms-3 mt-4 shadow mb-1">+ Add Real Estate</button>
@@ -31,11 +41,14 @@
                                             <button type="submit" class="btn btn-primary ms-1 me-2">Update</button>
                                         </form>
                                         {{-- Delete Button --}}
-                                        <form action="{{ route('deleteRealEstate', $realEstate->id) }}" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger ms-2 me-2">Delete</button>
-                                        </form>
+                                        @if ($realEstate->statusId != $completedId)
+                                            <form action="{{ route('deleteRealEstate', $realEstate->id) }}"
+                                                method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger ms-2 me-2">Delete</button>
+                                            </form>
+                                        @endif
                                         {{-- Finish Button --}}
                                         @if ($realEstate->statusId == $cartId)
                                             <form action="{{ route('finishRealEstate', $realEstate->id) }}"

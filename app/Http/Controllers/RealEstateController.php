@@ -82,6 +82,7 @@ class RealEstateController extends Controller
         $data = [
             'realEstates' => $realEstates,
             'cartId' => $this->STATUS['Cart']->id,
+            'completedId' => $this->STATUS['Completed']->id,
         ];
 
         return view('manageRealEstate.index', $data);
@@ -153,7 +154,7 @@ class RealEstateController extends Controller
         $realEstate->location = $request->location;
         $realEstate->save();
 
-        return redirect()->route('manageRealEstatePage');
+        return redirect()->route('manageRealEstatePage')->with('success', 'Real Estate is successfully updated');
     }
 
     public function finish($id)
@@ -181,15 +182,20 @@ class RealEstateController extends Controller
 
     public function destroy($id)
     {
+        $realEstate = RealEstate::find($id);
+
+        if ($realEstate->statusId == $this->STATUS['Completed']->id) {
+            return redirect()->back()->with('error', 'Transaction is completed, you can not delete real estate!');
+        }
+
         $cart = Cart::where('realEstateId', $id)->first();
         if ($cart != NULL) {
             $cart->delete();
         }
 
-        $realEstate = RealEstate::find($id);
         $realEstate->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Real Estate is successfully deleted');
     }
 
     public function searchResult(Request $request)
