@@ -2,7 +2,7 @@
 
 @section('content')
     <h1 class="ms-5 mt-4">Update Office</h1>
-    <div class="d-flex justify-content-center mt-5">
+    <div class="d-flex justify-content-center mt-5 mx-5">
         <div class="card me-3 shadow" style="width: 40rem;">
             <img src="{{ asset('storage/uploads/office/' . $office->image) }}" alt="Office Image"
                 style="height:500px; object-fit: cover">

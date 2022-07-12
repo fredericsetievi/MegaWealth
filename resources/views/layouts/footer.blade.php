@@ -1,4 +1,4 @@
-<div class="container-fluid bg-light text-black mt-5">
+<div class="container-fluid bg-light text-black mt-auto">
     <div class="container">
         <footer class="py-3">
             <!-- Copyright -->

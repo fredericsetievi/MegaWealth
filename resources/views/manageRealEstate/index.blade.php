@@ -24,18 +24,19 @@
         @endif
         @if (count($realEstates) > 0)
             <div class="card border-0">
-                <div class="card-body">
-                    <div class="card-group">
+                <div class="card-body row justify-content-center">
                         @foreach ($realEstates as $realEstate)
-                            <div class="card ms-1 me-1 mb-1 shadow">
+                            <div class="card ms-1 me-1 mb-1 shadow"; style="width: 300px">
                                 <img src="{{ asset('storage/uploads/realEstate/' . $realEstate->image) }}"
-                                    class="card-img-top" alt="Real Estate Image" style="height:250px">
+                                    class="card-img-top mt-2" alt="Real Estate Image" style="height:250px; width:100%">
                                 <div class="card-body">
-                                    <h4>{{ $realEstate->price }}</h4>
-                                    <h4>{{ $realEstate->buildingType->name }}</h4>
-                                    <h4>{{ $realEstate->salesType->name }}</h4>
-                                    <span class="badge bg-success ms-1 mb-2">{{ $realEstate->status->name }}</span>
-                                    <div class="d-flex">
+                                    <div style="height:200px">
+                                        <h4>{{ $realEstate->price }}</h4>
+                                        <h4>{{ $realEstate->buildingType->name }}</h4>
+                                        <h4>{{ $realEstate->salesType->name }}</h4>
+                                        <span class="badge bg-success ms-1 mb-2">{{ $realEstate->status->name }}</span>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
                                         {{-- Update Button --}}
                                         <form action="{{ route('editRealEstatePage', $realEstate->id) }}" method="GET">
                                             <button type="submit" class="btn btn-primary ms-1 me-2">Update</button>
@@ -62,11 +63,12 @@
                                 </div>
                             </div>
                         @endforeach
-                    </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center">
-                {{ $realEstates->appends(Request::except('page'))->links() }}
+            <div class="d-flex flex-wrap justify-content-center">
+                <div>
+                    {{ $realEstates->appends(Request::except('page'))->links() }}
+                </div>
             </div>
         @else
             <h1>No Real Estate</h1>

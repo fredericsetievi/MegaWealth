@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="d-flex justify-content-center mt-5">
+    <div class="d-flex justify-content-center mt-5 mx-5">
         <div class="card border border-primary" style="width: 50rem;">
             <div class="card-body">
                 <h1>Add Office</h1>
