@@ -220,6 +220,7 @@ class RealEstateController extends Controller
                 'title' => $request->search,
                 'realEstates' => $realEstates,
                 'cartId' => $this->STATUS['Cart']->id,
+                'completedId' => $this->STATUS['Completed']->id,
             ];
 
             return view('manageRealEstate.index', $data);

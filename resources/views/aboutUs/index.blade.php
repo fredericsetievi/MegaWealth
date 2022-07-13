@@ -22,7 +22,7 @@
                     @foreach ($offices as $office)
                         <div class="card ms-1 me-1 border-0">
                             <img src="{{ asset('storage/uploads/office/' . $office->image) }}" class="card-img-top"
-                                style="height: 250px; width:300px">
+                                style="height: 250px; width:300px;">
                             <div class="card-body border-0 ps-0">
                                 <h5 class="card-title">{{ $office->name }}</h5>
                                 <p class="card-text">{{ $office->address }}</p>
