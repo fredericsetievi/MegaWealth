@@ -122,7 +122,7 @@ class RealEstateController extends Controller
 
         $realEstate->save();
 
-        return  redirect()->route('manageRealEstatePage');
+        return  redirect()->route('manageRealEstatePage')->with('success', 'Real Estate is successfully added');
     }
 
     public function edit($id)
@@ -177,7 +177,7 @@ class RealEstateController extends Controller
             $realEstate->save();
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Real Estate successfully updated!');
     }
 
     public function destroy($id)

@@ -15,8 +15,7 @@
                     @csrf
                     <div class="mb-3">
                         <label for="salesTypeId" class="form-label">Sales Type</label>
-                        <select class="form-select" aria-label="Default select example" id="salesTypeId" name="salesTypeId"
-                            required>
+                        <select class="form-select" aria-label="Default select example" id="salesTypeId" name="salesTypeId">
                             <option value="">Choose the type of sales</option>
                             @foreach ($salesTypes as $salesType)
                                 <option value="{{ $salesType->id }}"
@@ -29,7 +28,7 @@
                     <div class="mb-3">
                         <label for="buildingType" class="form-label">Building Type</label>
                         <select class="form-select" aria-label="Default select example" id="buildingType"
-                            name="buildingTypeId" required>
+                            name="buildingTypeId">
                             <option value="">Choose the building type</option>
                             @foreach ($buildingTypes as $buildingType)
                                 <option value="{{ $buildingType->id }}"
@@ -46,14 +45,13 @@
                     <div class="mb-3">
                         <label for="price" class="form-label">Price</label>
                         <input type="text" class="form-control" id="price" name="price"
-                            placeholder="Enter Real Estate Price Here..." value="{{ old('price', $realEstate->price) }}"
-                            required>
+                            placeholder="Enter Real Estate Price Here..." value="{{ old('price', $realEstate->price) }}">
                     </div>
                     <div class="mb-3">
                         <label for="location" class="form-label">Location</label>
                         <input type="text" class="form-control" id="location" name="location"
                             placeholder="Enter Real Estate Location Here..."
-                            value="{{ old('location', $realEstate->location) }}" required>
+                            value="{{ old('location', $realEstate->location) }}">
                     </div>
                     {{-- Error Message --}}
                     @if ($errors->any())

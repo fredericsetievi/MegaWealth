@@ -10,27 +10,27 @@
                     <div class="mb-3">
                         <label for="name" class="form-label">Office Name</label>
                         <input type="text" class="form-control" id="name" name="name"
-                            placeholder="Enter Office Name Here..." value="{{ old('name') }}" required>
+                            placeholder="Enter Office Name Here..." value="{{ old('name') }}">
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Office Address</label>
                         <input type="text" class="form-control" id="address" name="address"
-                            placeholder="Enter Office Address Here..." value="{{ old('address') }}" required>
+                            placeholder="Enter Office Address Here..." value="{{ old('address') }}">
                     </div>
                     <div class="mb-3">
                         <label for="contactName" class="form-label">Contact Name</label>
                         <input type="text" class="form-control" id="contactName" name="contactName"
-                            placeholder="Enter Office Contact Name Here..." value="{{ old('contactName') }}" required>
+                            placeholder="Enter Office Contact Name Here..." value="{{ old('contactName') }}">
                     </div>
                     <div class="mb-3">
                         <label for="phone" class="form-label">Phone Number</label>
                         <input type="text" class="form-control" id="phone" name="phone"
-                            placeholder="Enter Office Phone Number Here..." value="{{ old('phone') }}" required>
+                            placeholder="Enter Office Phone Number Here..." value="{{ old('phone') }}">
                     </div>
                     <div class="mb-3">
                         <label for="image" class="form-label">Upload the Image</label>
                         <input type="file" class="form-control" id="image" name="image"
-                            placeholder="Enter Office Image Number Here..." required>
+                            placeholder="Enter Office Image Number Here...">
                     </div>
                     {{-- Error Message --}}
                     @if ($errors->any())

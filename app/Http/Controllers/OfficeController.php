@@ -61,7 +61,7 @@ class OfficeController extends Controller
 
         $office->save();
 
-        return  redirect()->route('manageOfficePage');
+        return  redirect()->route('manageOfficePage')->with('success', 'Office is successfully added');
     }
 
     public function edit($id)
@@ -87,7 +87,7 @@ class OfficeController extends Controller
         $office->phone = $request->phone;
         $office->save();
 
-        return  redirect()->route('manageOfficePage');
+        return  redirect()->route('manageOfficePage')->with('success', 'Office is successfully updated');
     }
 
     public function destroy($id)
@@ -95,6 +95,6 @@ class OfficeController extends Controller
         $office = Office::find($id);
         $office->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Office is successfully deleted');
     }
 }

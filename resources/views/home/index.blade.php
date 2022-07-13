@@ -11,11 +11,11 @@
 @section('content')
     {{-- Success Message --}}
     @if (session('success'))
-        <div class="alert alert-success">
+        <div class="alert alert-success mb-0">
             {{ session('success') }}
         </div>
     @elseif (session('error'))
-        <div class="alert alert-danger">
+        <div class="alert alert-danger mb-0">
             {{ session('error') }}
         </div>
     @endif
@@ -28,7 +28,7 @@
                 <div class="search-group d-flex" style="justify-content: center">
                     <div class="col-8">
                         <input type="text" class="form-control" id="search" name="search"
-                            placeholder="Enter a City, Property Type, Buy or Rent..." required>
+                            placeholder="Enter a City, Property Type, Buy or Rent...">
                     </div>
                     <div class="col-1 ms-4">
                         <button type="submit" class="btn btn-primary">Search</button>

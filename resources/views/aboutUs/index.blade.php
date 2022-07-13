@@ -13,12 +13,12 @@
         </div>
     </div>
     <div class="card border-0">
-        <h5 class="card-header text-start ms-2 me-2" style="background: none">
+        <h3 class="card-header text-start ms-2 me-2" style="background: none">
             Our Offices
-        </h5>
-        <div class="card-body">
-            <div class="card-group">
-                @if (count($offices) > 0)
+        </h3>
+        <div class="card-body px-5">
+            @if (count($offices) > 0)
+                <div class="card-group row justify-content-center">
                     @foreach ($offices as $office)
                         <div class="card ms-1 me-1 border-0">
                             <img src="{{ asset('storage/uploads/office/' . $office->image) }}" class="card-img-top"
@@ -31,10 +31,10 @@
                             </div>
                         </div>
                     @endforeach
-                @else
-                    <h1>No Offices Available</h1>
-                @endif
-            </div>
+                </div>
+            @else
+                <h1>No Offices Available</h1>
+            @endif
             <div class="d-flex justify-content-center mt-5">
                 {{ $offices->links() }}
             </div>

@@ -14,15 +14,14 @@
                         <div class="input-group mb-3">
                             <input type="email" class="form-control" id="email" name="email"
                                 placeholder="Enter Your Email Address Here..."
-                                value="{{ \Illuminate\Support\Facades\Cookie::get('LoginCookie') !== null ? \Illuminate\Support\Facades\Cookie::get('LoginCookie') : '' }}"
-                                required>
+                                value="{{ \Illuminate\Support\Facades\Cookie::get('LoginCookie') !== null ? \Illuminate\Support\Facades\Cookie::get('LoginCookie') : '' }}">
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <div class="input-group mb-3">
                             <input type="password" class="form-control" id="password" name="password"
-                                placeholder="Your password must be at least 8 characters." required minlength="8">
+                                placeholder="Your password must be at least 8 characters.">
                         </div>
                     </div>
                     <div class="mb-3 form-check">

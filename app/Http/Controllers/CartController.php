@@ -79,7 +79,7 @@ class CartController extends Controller
         $realEstate->statusId = $this->STATUS['Cart']->id;
         $realEstate->save();
 
-        return redirect()->back()->with('success', 'Real Estate added to cart successfully');
+        return redirect()->back()->with('success', 'Real Estate successfully added to cart');
     }
 
     public function destroy($realEstateId)
@@ -91,7 +91,7 @@ class CartController extends Controller
         $cart = Cart::where('userId', auth()->user()->id)->where('realEstateId', $realEstateId)->first();
         $cart->delete();
 
-        return redirect()->route('cartPage');
+        return redirect()->route('cartPage')->with('success', 'Real Estate successfully removed from cart');
     }
 
     public function checkout($userId)
@@ -113,6 +113,6 @@ class CartController extends Controller
             $cart->delete();
         }
 
-        return redirect()->route('homePage')->with('success', 'Checkout Successful');
+        return redirect()->route('homePage')->with('success', 'Checkout Real Estate Successful');
     }
 }

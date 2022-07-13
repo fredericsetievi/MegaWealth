@@ -1,6 +1,16 @@
 @extends('layouts.main')
 
 @section('content')
+    {{-- Success Message --}}
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @elseif (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="container">
         <form action="{{ route('createOfficePage') }}" method="GET">
             <button type="submit" class="btn btn-primary ms-3 mt-4 shadow mb-1">+ Add Office</button>
@@ -27,8 +37,7 @@
                                         <button type="submit" class="btn btn-primary">Update</button>
                                     </form>
                                     {{-- Delete Button --}}
-                                    <form action="{{ route('deleteOffice', $office->id) }}" method="POST"
-                                        class="ms-3">
+                                    <form action="{{ route('deleteOffice', $office->id) }}" method="POST" class="ms-3">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit" class="btn btn-danger">Delete</button>
@@ -43,7 +52,9 @@
                 {{ $offices->links() }}
             </div>
         @else
-            <h1>No Office</h1>
+            <div class="d-flex justify-content-center mt-5">
+                <h1>No Office Available</h1>
+            </div>
         @endif
     </div>
 @endsection

@@ -15,25 +15,24 @@
                     <div class="mb-3">
                         <label for="name" class="form-label">Office Name</label>
                         <input type="text" class="form-control" id="name" name="name"
-                            placeholder="Enter Office Name Here..." value="{{ old('name', $office->name) }}" required>
+                            placeholder="Enter Office Name Here..." value="{{ old('name', $office->name) }}">
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Office Address</label>
                         <input type="text" class="form-control" id="address" name="address"
                             placeholder="Enter Office Address Here..."
-                            value="{{ old('address', $office->address) }}"required>
+                            value="{{ old('address', $office->address) }}">
                     </div>
                     <div class="mb-3">
                         <label for="contactName" class="form-label">Contact Name</label>
                         <input type="text" class="form-control" id="contactName" name="contactName"
                             placeholder="Enter Office Contact Name Here..."
-                            value="{{ old('contactName', $office->contactName) }}" required>
+                            value="{{ old('contactName', $office->contactName) }}">
                     </div>
                     <div class="mb-3">
                         <label for="phone" class="form-label">Phone Number</label>
                         <input type="text" class="form-control" id="phone" name="phone"
-                            placeholder="Enter Office Phone Number Here..." value="{{ old('phone', $office->phone) }}"
-                            required>
+                            placeholder="Enter Office Phone Number Here..." value="{{ old('phone', $office->phone) }}">
                     </div>
                     {{-- Error Message --}}
                     @if ($errors->any())
