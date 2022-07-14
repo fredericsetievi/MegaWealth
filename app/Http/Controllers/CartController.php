@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\SalesType;
 use App\Models\RealEstate;
 use App\Models\Transaction;
+use App\Models\DetailTransaction;
 use App\Models\BuildingType;
 use Illuminate\Http\Request;
 use App\Models\StatusRealEstate;
@@ -96,16 +97,24 @@ class CartController extends Controller
 
     public function checkout($userId)
     {
+        // add new transaction
+        $transactionId = Str::orderedUuid();
+
+        $transaction = new Transaction();
+        $transaction->id = $transactionId;
+        $transaction->userId = $userId;
+        $transaction->save();
+
         $carts = Cart::where('userId', $userId)->get();
 
         foreach ($carts as $cart) {
             $realEstate = RealEstate::where('id', $cart->realEstateId)->first();
-            // add new transaction
-            $transaction = new Transaction();
-            $transaction->id = Str::orderedUuid();
-            $transaction->userId = $userId;
-            $transaction->realEstateId = $realEstate->id;
-            $transaction->save();
+            // add new detail transaction
+            $detailTransaction = new DetailTransaction();
+            $detailTransaction->id = Str::orderedUuid();
+            $detailTransaction->transactionId = $transactionId;
+            $detailTransaction->realEstateId = $realEstate->id;
+            $detailTransaction->save();
             // update real estate status to completed
             $realEstate->statusId = $this->STATUS['Completed']->id;
             $realEstate->save();

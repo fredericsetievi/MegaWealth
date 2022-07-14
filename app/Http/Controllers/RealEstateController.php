@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\SalesType;
 use App\Models\RealEstate;
 use App\Models\Transaction;
+use App\Models\DetailTransaction;
 use Illuminate\Support\Str;
 use App\Models\BuildingType;
 use Illuminate\Http\Request;
@@ -166,11 +167,19 @@ class RealEstateController extends Controller
             $cart->delete();
 
             // add new transaction
+            $transactionId = Str::orderedUuid();
+
             $transaction = new Transaction();
-            $transaction->id = Str::orderedUuid();
+            $transaction->id = $transactionId;
             $transaction->userId = $cart->userId;
-            $transaction->realEstateId = $id;
             $transaction->save();
+
+            // add detail transaction
+            $detailTransaction = new DetailTransaction();
+            $detailTransaction->id = Str::orderedUuid();
+            $detailTransaction->transactionId = $transactionId;
+            $detailTransaction->realEstateId = $id;
+            $detailTransaction->save();
 
             // update real estate status to completed
             $realEstate->statusId = $this->STATUS['Completed']->id;

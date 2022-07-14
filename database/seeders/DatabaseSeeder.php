@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\DetailTransaction;
 use App\Models\RealEstate;
 use Illuminate\Database\Seeder;
 
@@ -22,6 +23,8 @@ class DatabaseSeeder extends Seeder
             StatusRealEstateSeeder::class,
             RealEstateSeeder::class,
             CartSeeder::class,
+            TransactionSeeder::class,
+            DetailTransactionSeeder::class,
         ]);
     }
 }

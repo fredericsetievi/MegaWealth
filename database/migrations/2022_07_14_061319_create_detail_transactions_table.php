@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTransactionsTable extends Migration
+class CreateDetailTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('detail_transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('userId')->references('id')->on('users');
+            $table->foreignUuid('transactionId')->references('id')->on('transactions');
+            $table->foreignUuid('realEstateId')->references('id')->on('real_estates')->onDelete('no action');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateTransactionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('detail_transactions');
     }
 }

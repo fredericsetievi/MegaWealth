@@ -28,9 +28,8 @@ Route::prefix('v1')
         Route::middleware('auth:api')->get('/transactions/{email}', [TransactionApiController::class, 'show']);
     });
 
-
-    // Client ID: 96b8b4dc-55ad-4af6-9c1e-230742352713
-    // Client secret: gpXvBknPSiyvlafRJ4zDLv8lJjJO0Rz9VZSF4T8F
+    // Client ID: 96c657d8-4ab3-444a-b89b-32a848493c1e
+    // Client secret: TKCyk4uamIUr1kU2bKAwzRSwuYidfk6dWbQPNDRT
     // Password grant client created successfully.
-    // Client ID: 96b8b4dd-f3dc-43e1-a5ff-80485b41e065
-    // Client secret: 0cdBKJ57hp02aQww0GwkFD6M6nswjvR4yr6LlTdO
+    // Client ID: 96c657d8-9f75-4740-b707-63c71801a1dc
+    // Client secret: qo81mxajug56hWxjmrBMD0Za23H85KOTMpK8Ldeu
