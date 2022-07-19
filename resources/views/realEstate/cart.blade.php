@@ -38,7 +38,7 @@
             {{ $realEstates->links() }}
         </div>
         {{-- Checkout Button --}}
-        <div class="container d-flex justify-content-center mt-2">
+        <div class="container d-flex justify-content-center mt-2 mb-4">
             <form action="{{ route('checkoutCart',$realEstates->first()->user()->first()->id) }}" method="POST">
                 @method('DELETE')
                 @csrf
