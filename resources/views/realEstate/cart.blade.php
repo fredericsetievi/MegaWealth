@@ -4,7 +4,7 @@
     <h1 class="ms-5 mt-4">Your Cart</h1>
     @if (count($realEstates) > 0)
         <div class="card border-0">
-            <div class="card-body row justify-content-center mt-3">
+            <div class="card-body row justify-content-center mt-3" style="margin-right: 0.5rem">
                 @foreach ($realEstates as $realEstate)
                     <div class="card ms-1 me-1 mb-3 shadow" style="width: 250px">
                         <img src="{{ asset('storage/uploads/realEstate/' . $realEstate->image) }}" class="card-img-top mt-2" alt="Real Estate Image" style="height: 250px; width:100%">
