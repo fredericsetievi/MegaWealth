@@ -105,7 +105,7 @@ class RealEstateController extends Controller
         $request->validate([
             'salesTypeId' => 'required|in:' . $this->sales_type_id->implode(','),
             'buildingTypeId' => 'required|in:' . $this->building_type_id->implode(','),
-            'price' => 'required|numeric',
+            'price' => 'required|numeric|min:0',
             'location' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:10240',
         ]);
@@ -146,7 +146,7 @@ class RealEstateController extends Controller
         $request->validate([
             'salesTypeId' => 'required|in:' . $this->sales_type_id->implode(','),
             'buildingTypeId' => 'required|in:' . $this->building_type_id->implode(','),
-            'price' => 'required|numeric',
+            'price' => 'required|numeric|min:0',
             'location' => 'required',
         ]);
 
