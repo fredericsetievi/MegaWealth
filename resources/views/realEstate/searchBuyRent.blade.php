@@ -6,13 +6,13 @@
             <h1 class="card-header text-start ms-2 me-2 border-0" style="background: none">
                 Showing Real Estates For: {{ $title }}
             </h1>
-            <div class="card-body row justify-content-center mt-3">
+            <div class="card-body row justify-content-center mt-3" style="margin-right: 0;">
                 @foreach ($realEstates as $realEstate)
-                    <div class="card ms-1 me-1 shadow" style="width: 300px">
+                    <div class="card ms-1 me-1 shadow" style="width: 250px">
                         <img src="{{ asset('storage/uploads/realEstate/' . $realEstate->image) }}" class="card-img-top mt-2"
                             style="height: 250px; width:100%">
                         <div class="card-body">
-                            <div style="height: 150px">
+                            <div style="height: 200px">
                                 @if ($realEstate->salesTypeId == $saleId)
                                     <h4>{{ $realEstate->price }}</h4>
                                 @elseif($realEstate->salesTypeId == $rentId)

@@ -14,7 +14,7 @@
                         <div class="input-group mb-3">
                             <input type="email" class="form-control" id="email" name="email"
                                 placeholder="Enter Your Email Address Here..."
-                                value="{{ \Illuminate\Support\Facades\Cookie::get('LoginCookie') !== null ? \Illuminate\Support\Facades\Cookie::get('LoginCookie') : '' }}">
+                                value="{{ \Illuminate\Support\Facades\Cookie::get('LoginCookie') !== null ? \Illuminate\Support\Facades\Cookie::get('LoginCookie') : old('email') }}">
                         </div>
                     </div>
                     <div class="mb-3">

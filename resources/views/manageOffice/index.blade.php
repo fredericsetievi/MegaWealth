@@ -21,7 +21,7 @@
             <div class="card border-0">
                 <div class="card-body row justify-content-center">
                     @foreach ($offices as $office)
-                        <div class="card ms-1 me-1 mb-1 shadow" style="width: 300px">
+                        <div class="card ms-1 me-1 mb-1 shadow" style="width: 250px">
                             <img src="{{ asset('storage/uploads/office/' . $office->image) }}" class="card-img-top mt-2"
                                 alt="Office Image" style="height:250px; width:100%">
                             <div class="card-body">

@@ -12,22 +12,24 @@
                 throughout the states and is planning to build more.</p>
         </div>
     </div>
-    <div class="card border-0">
+    <div class="container">
         <h3 class="card-header text-start ms-2 me-2" style="background: none">
             Our Offices
         </h3>
-        <div class="card-body px-5">
+        <div class="card border-0">
             @if (count($offices) > 0)
-                <div class="card-group row justify-content-center">
+                <div class="card-body row justify-content-center">
                     @foreach ($offices as $office)
-                        <div class="card ms-1 me-1 border-0">
-                            <img src="{{ asset('storage/uploads/office/' . $office->image) }}" class="card-img-top"
-                                style="height: 250px; width:300px;">
+                        <div class="card ms-1 me-1 mb-1 shadow" style="width: 210px">
+                            <img src="{{ asset('storage/uploads/office/' . $office->image) }}" class="card-img-top mt-2"
+                                style="height: 250px; width:100%">
                             <div class="card-body border-0 ps-0">
-                                <h5 class="card-title">{{ $office->name }}</h5>
-                                <p class="card-text">{{ $office->address }}</p>
-                                <p class="card-text">{{ $office->contactName }}</p>
-                                <p class="card-text">{{ $office->phone }}</p>
+                                <div style="height: 250px">
+                                    <h5 class="card-title">{{ $office->name }}</h5>
+                                    <p class="card-text">{{ $office->address }}</p>
+                                    <p class="card-text">{{ $office->contactName }}</p>
+                                    <p class="card-text">{{ $office->phone }}</p>
+                                </div>
                             </div>
                         </div>
                     @endforeach

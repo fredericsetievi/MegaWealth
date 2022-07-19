@@ -26,7 +26,7 @@
             <div class="card border-0">
                 <div class="card-body row justify-content-center">
                     @foreach ($realEstates as $realEstate)
-                        <div class="card ms-1 me-1 mb-1 shadow"; style="width: 300px">
+                        <div class="card ms-1 me-1 mb-1 shadow" style="width: 250px">
                             <img src="{{ asset('storage/uploads/realEstate/' . $realEstate->image) }}"
                                 class="card-img-top mt-2" alt="Real Estate Image" style="height:250px; width:100%">
                             <div class="card-body">
@@ -39,14 +39,14 @@
                                 <div class="d-flex justify-content-center">
                                     {{-- Update Button --}}
                                     <form action="{{ route('editRealEstatePage', $realEstate->id) }}" method="GET">
-                                        <button type="submit" class="btn btn-primary ms-1 me-2">Update</button>
+                                        <button type="submit" class="btn btn-primary ms-1 me-1">Update</button>
                                     </form>
                                     {{-- Delete Button --}}
                                     @if ($realEstate->statusId != $completedId)
                                         <form action="{{ route('deleteRealEstate', $realEstate->id) }}" method="POST">
                                             @method('DELETE')
                                             @csrf
-                                            <button type="submit" class="btn btn-danger ms-2 me-2">Delete</button>
+                                            <button type="submit" class="btn btn-danger ms-1 me-1">Delete</button>
                                         </form>
                                     @endif
                                     {{-- Finish Button --}}
@@ -54,7 +54,7 @@
                                         <form action="{{ route('finishRealEstate', $realEstate->id) }}" method="POST">
                                             @method('PUT')
                                             @csrf
-                                            <button type="submit" class="btn btn-success ms-2 me-2">Finish</button>
+                                            <button type="submit" class="btn btn-success ms-1 me-1">Finish</button>
                                         </form>
                                     @endif
                                 </div>
