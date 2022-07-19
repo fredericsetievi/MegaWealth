@@ -31,9 +31,14 @@
                                 class="card-img-top mt-2" alt="Real Estate Image" style="height:250px; width:100%">
                             <div class="card-body">
                                 <div style="height:200px">
-                                    <h4>{{ $realEstate->price }}</h4>
-                                    <h4>{{ $realEstate->buildingType->name }}</h4>
-                                    <h4>{{ $realEstate->salesType->name }}</h4>
+                                    @if ($realEstate->salesTypeId == $saleId)
+                                        <h4>${{ $realEstate->price }}</h4>
+                                    @elseif($realEstate->salesTypeId == $rentId)
+                                        <h4>${{ $realEstate->price }} / Month</h4>
+                                    @endif
+                                    <h5>{{ $realEstate->location }}</h5>
+                                    <span class="badge bg-info ms-1 mb-2">{{ $realEstate->buildingType->name }}</span>
+                                    <span class="badge bg-primary ms-1 mb-2">{{ $realEstate->salesType->name }}</span>
                                     <span class="badge bg-success ms-1 mb-2">{{ $realEstate->status->name }}</span>
                                 </div>
                                 <div class="d-flex justify-content-center">

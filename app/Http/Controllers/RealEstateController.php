@@ -82,6 +82,8 @@ class RealEstateController extends Controller
 
         $data = [
             'realEstates' => $realEstates,
+            'saleId' => $this->SALES_TYPE['Sale']->id,
+            'rentId' => $this->SALES_TYPE['Rent']->id,
             'cartId' => $this->STATUS['Cart']->id,
             'completedId' => $this->STATUS['Completed']->id,
         ];
