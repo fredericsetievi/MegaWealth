@@ -5,19 +5,27 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\RealEstate;
 use App\Models\Transaction;
-use App\Models\DetailTransaction;
 use Illuminate\Http\Request;
+use App\Models\DetailTransaction;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Collection;
 
 class TransactionApiController extends Controller
 {
     public function show($email)
     {
+        if (!Auth::guard('api')->check()) {
+            return response()->json([
+                'status' => 'false',
+                'error' => 'Email Unauthenticated'
+            ]);
+        }
+
         $user = User::where('email', $email)->first();
         if ($user == null) {
             return response()->json([
                 'status' => 'false',
-                'message' => 'Email Unauthenticated',
+                'message' => 'User not found',
             ]);
         }
 
