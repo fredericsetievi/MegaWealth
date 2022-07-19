@@ -9,7 +9,6 @@
         </div>
         <div class="card border border-primary ms-3" style="width: 40rem;">
             <div class="card-body shadow">
-                <h1>Add Real Estate</h1>
                 <form action="{{ route('updateRealEstate', $realEstate->id) }}" method="POST">
                     @method('PUT')
                     @csrf
